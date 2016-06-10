@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>application Application</title>
+    <link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body ng-app = "applicationApp">
+<div class="container" ng-controller="applicationController">
+    <h2>LoopBack application Application</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <table class="table table-striped">
+                <tr ng-repeat='application in applications'>
+                    <td>{{ application.name}}</td>
+                    <td>{{ application.description}}</td>
+                    <td><button class="btn btn-danger btn-xs" ng-click="delete($index)">  <span class="glyphicon glyphicon-trash" ></span></button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <input type='text' ng-model="application.name">
+            <input type='text' ng-model="application.description">
+            <button class="btn btn-primary btn-md"  ng-click="add()">Add</button>
+            <i ng-show="loading" class="fa fa-spinner fa-spin"></i>
+        </div>
+    </div>
+</div>
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-resource/angular-resource.js"></script>
+    <script src="js/lb-services.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+

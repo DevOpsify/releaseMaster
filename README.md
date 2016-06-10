@@ -14,3 +14,5 @@ $ docker run --name mysql -p 3306:3306 -e MYSQL_DATABASE=release -e MYSQL_ROOT_P
 $ node server/create-lb-tables.js
 Loopback tables [User,AccessToken,ACL,RoleMapping,Role] created in  mysql
 ```
+
+
