@@ -1,6 +1,22 @@
 {
   "db": {
     "name": "db",
-    "connector": "memory"
+    "host": "192.168.99.100",
+    "port": 3306,
+    "url": "",
+    "database": "release",
+    "password": "password",
+    "user": "root",
+    "connector": "mysql"
+  },
+  "mysqlDS": {
+    "host": "192.168.99.100",
+    "port": 3306,
+    "url": "",
+    "database": "release",
+    "password": "password",
+    "name": "mysqlDS",
+    "user": "root",
+    "connector": "mysql"
   }
 }
