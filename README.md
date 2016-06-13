@@ -11,6 +11,8 @@ $ docker run --name mysql -p 3306:3306 -e MYSQL_DATABASE=release -e MYSQL_ROOT_P
 ##  Initial ACL tables
 
 ```
+Assume you have all the package installed , otherwise, you need to run npm install first
+ 
 $ node server/create-lb-tables.js
 Loopback tables [User,AccessToken,ACL,RoleMapping,Role] created in  mysql
 ```
@@ -19,8 +21,8 @@ Loopback tables [User,AccessToken,ACL,RoleMapping,Role] created in  mysql
 ## Run App
 
 ```
-npm install -g bower
-npm install
-bower install
-node .
+1. Install bower if you don't have it locally using sudo npm install -g bower
+2. npm install
+3. bower install
+4. node . (Note that this will run the web server at foreground)
 ```
