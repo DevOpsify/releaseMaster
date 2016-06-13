@@ -6,7 +6,9 @@ WORKDIR /usr/src/app
 RUN npm install -g bower
 COPY package.json /usr/src/app/
 RUN npm install
-COPY . /usr/src/app
+COPY .bowerrc /usr/src/app
+COPY bower.json /usr/src/app
 RUN bower install --allow-root
 
+COPY . /usr/src/app
 CMD [ "npm", "start" ]
