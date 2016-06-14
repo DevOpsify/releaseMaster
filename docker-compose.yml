@@ -1,0 +1,15 @@
+version: '2'
+services:
+  db:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      - "MYSQL_DATABASE=release"
+      - "MYSQL_ROOT_PASSWORD=password"
+  web:
+    image: siweiwang/releasemaster
+    ports:
+      - "3000:3000"
+    environment:
+      - "DB_HOST=db"
