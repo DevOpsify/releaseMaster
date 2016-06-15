@@ -10,5 +10,11 @@ COPY .bowerrc /usr/src/app
 COPY bower.json /usr/src/app
 RUN bower install --allow-root
 
+WORKDIR /opt
+
+COPY start_node.sh .
+
+RUN chmod 755 start_node.sh
+
 COPY . /usr/src/app
-CMD [ "npm", "start" ]
+CMD ["./start_node.sh"]
