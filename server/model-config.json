@@ -35,5 +35,9 @@
   "application": {
     "dataSource": "mysqlDS",
     "public": true
+  },
+  "build": {
+    "dataSource": "mysqlDS",
+    "public": true
   }
 }

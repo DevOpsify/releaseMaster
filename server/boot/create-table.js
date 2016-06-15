@@ -1,5 +1,7 @@
 module.exports = function(app) {
-  app.dataSources.mysqlDS.automigrate('application', function(err) {
+  var ds = app.dataSources.mysqlDS;
+
+  ds.automigrate('application', function(err) {
     if (err) throw err;
  
     app.models.application.create([
@@ -12,4 +14,10 @@ module.exports = function(app) {
       console.log('Models created: \n', applications);
     });
   });
+
+
+  ds.automigrate('build', function(err) {
+    if (err) throw err;
+  });
+
 };

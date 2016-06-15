@@ -1,0 +1,28 @@
+{
+  "name": "build",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "application": {
+      "type": "string",
+      "required": true
+    },
+    "gitsha": {
+      "type": "string",
+      "required": true
+    },
+    "dockersha": {
+      "type": "string"
+    },
+    "buildtime": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
