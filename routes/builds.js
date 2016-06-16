@@ -40,9 +40,6 @@ router.post('/:id', function(req, res, next) {
 
 /* GET /builds/id */
 router.get('/:id', function(req, res, next) {
-
-
-
   Build.findById(req.params.id)
      .populate("application")
     .exec(function (err, post) {
@@ -52,12 +49,13 @@ router.get('/:id', function(req, res, next) {
 });
 
 /* PUT /builds/:id */
-router.put('/:id', function(req, res, next) {
-  Build.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
-});
+// Do we need this ?
+// router.put('/:id', function(req, res, next) {
+//   Build.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
+//     if (err) return next(err);
+//     res.json(post);
+//   });
+// });
 
 /* DELETE /builds/:id */
 router.delete('/:id', function(req, res, next) {
