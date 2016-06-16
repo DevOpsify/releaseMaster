@@ -1,15 +1,13 @@
 version: '2'
 services:
-  db:
+  mongodb:
     image: mongo
 #    volumes:
 #      - /opt/mongo_data:/data/db
   web:
-    build: .
+    image: nextlink/releasemaster
     ports:
       - "3000:3000"
-    links:
-      - db:mongodb
     depends_on:
-      - db
+      - mongodb
 
