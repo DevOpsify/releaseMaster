@@ -13,7 +13,7 @@ var ApplicationSchema = new Schema({
 ApplicationSchema.plugin(autoIncrement.plugin, 'Application');
 
 var BuildSchema = new Schema ({
-  application : { type: Schema.ObjectId, ref: 'Application' },
+  application : { type: Number, ref: 'Application' },
   gitRepo: String,
   gitBranch: String,
   gitSHA: String,
@@ -25,7 +25,7 @@ BuildSchema.plugin(autoIncrement.plugin, 'Build');
 
 var DeploymentSchema = new Schema({
   created_at: { type: Date, default: Date.now },
-  build : { type: Schema.ObjectId, ref: 'Build' },
+  build : { type: Number, ref: 'Build' },
   targetEnvironment: String,
   qaResult: String,
 
