@@ -9,8 +9,13 @@ var bodyParser = require('body-parser');
 var app = express();
 
 var mongoose = require('mongoose');
+
+ 
+
 if ( ! process.env.mongodb ) process.env.mongodb="mongodb";
-mongoose.connect('mongodb://'+process.env.mongodb+'/appconfig', function(err) {
+global.mongoURI='mongodb://'+process.env.mongodb+'/releasemaster';
+
+mongoose.connect(mongoURI, function(err) {
   if(err) {
     console.log('connection error', err);
   } else {

@@ -37,3 +37,5 @@ Loopback tables [User,AccessToken,ACL,RoleMapping,Role] created in  mysql
 3. bower install
 4. node . (Note that this will run the web server at foreground)
 ```
+
+mongodb=admin:password@ds059722.mlab.com:59722/releasemaster
