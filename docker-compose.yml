@@ -2,8 +2,8 @@ version: '2'
 services:
   mongodb:
     image: mongo
-#    volumes:
-#      - /opt/mongo_data:/data/db
+   volumes:
+     - /opt/mongo_data:/data/db
   web:
     image: nextlink/releasemaster
     ports:
