@@ -1,0 +1,15 @@
+version: '2'
+services:
+  db:
+    image: mongo
+#    volumes:
+#      - /opt/mongo_data:/data/db
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    links:
+      - db:mongodb
+    depends_on:
+      - db
+

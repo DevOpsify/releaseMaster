@@ -1,0 +1,20 @@
+{
+  "name": "release-master",
+  "version": "0.0.0",
+  "author": "Max Cai",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "bower": "^1.3.9",
+    "body-parser": "~1.13.2",
+    "cookie-parser": "~1.3.5",
+    "debug": "~2.2.0",
+    "ejs": "~2.3.3",
+    "express": "~4.13.1",
+    "mongoose": "^4.1.11",
+    "morgan": "~1.6.1",
+    "serve-favicon": "~2.3.0"
+  }
+}

@@ -1,0 +1,35 @@
+{
+    "name": "releasemaster",
+    "version": "0.0.1",
+    "description": "release master",
+    "homepage": "http://devopsify.github.io/",
+    "authors": [
+        "Max Cai <zhiyuan.cai@gmail.com>"
+    ],
+    "contributors": [
+        "Charles Cai <nextlink@gmail.com>"
+    ],
+    "main": "index.html",
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "angular":"~1.4",
+        "angular-route":"~1.4",
+        "angular-resource":"~1.4",
+        "angular-cookies": "~1.4",
+        "angular-bootstrap": "~0.11.0",
+        "angular-ui-router": "~0.2.10",
+        "bootstrap": "~3.2.0",
+        "font-awesome": "~4.1.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DevOpsify/releaseMaster"
+    }
+}
