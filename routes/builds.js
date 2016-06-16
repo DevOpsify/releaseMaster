@@ -6,34 +6,27 @@ var dbschema = require('../models/dbschema.js');
 var Application = dbschema.Application;
 var Build = dbschema.Build;
 
-/* GET /environments listing. */
+/* GET /builds listing. */
 router.get('/', function(req, res, next) {
-  Environment.find(function (err, environments) {
+  Build.find(function (err, builds) {
     if (err) return next(err);
-    res.json(environments);
+    res.json(builds);
   });
 });
 
-/* POST /environments */
+/* POST /builds */
 router.post('/', function(req, res, next) {
-    Environment.findOne({ name: req.body.name , application:req.body.application},  function (err, environment) {
-        if (err) return next(err);
-        if (environment)
-        {
-            console.log("duplicate");
-            res.json(null);
-        }else{
-            Environment.create(req.body, function (err, post) {
-                if (err) return next(err);
-                res.json(post);
-            });             
-        }
-    });
+  var newBuild = new Build(req.body);
+  newBuild.save(function(err){
+      if (err) return next(err);
+  }); 
+  res.json(newBuild);
+
 });
 
-/* POST /environments  + property */
+/* POST /builds  + property */
 router.post('/:id', function(req, res, next) {
-    Environment.findById(req.params.id)
+    Build.findById(req.params.id)
     .exec(function(err,env){
         if (err) return next(err);
         env.properties.push (req.body);
@@ -45,12 +38,12 @@ router.post('/:id', function(req, res, next) {
 });
 
 
-/* GET /environments/id */
+/* GET /builds/id */
 router.get('/:id', function(req, res, next) {
 
 
 
-  Environment.findById(req.params.id)
+  Build.findById(req.params.id)
      .populate("application")
     .exec(function (err, post) {
     if (err) return next(err);
@@ -58,17 +51,17 @@ router.get('/:id', function(req, res, next) {
   });    
 });
 
-/* PUT /environments/:id */
+/* PUT /builds/:id */
 router.put('/:id', function(req, res, next) {
-  Environment.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
+  Build.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
 });
 
-/* DELETE /environments/:id */
+/* DELETE /builds/:id */
 router.delete('/:id', function(req, res, next) {
-  Environment.findByIdAndRemove(req.params.id, req.body, function (err, post) {
+  Build.findByIdAndRemove(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });

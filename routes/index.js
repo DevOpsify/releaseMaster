@@ -4,8 +4,8 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var dbschema = require('../models/dbschema.js');
 var Application = dbschema.Application;
-var Environment = dbschema.Environment;
-var Property = dbschema.Property;
+var Build = dbschema.Build;
+var Deployment = dbschema.Deployment;
 
 
 /* GET home page. */
