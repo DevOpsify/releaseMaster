@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/DevOpsify/releaseMaster.svg?branch=master)](https://travis-ci.org/DevOpsify/releaseMaster)
+
+
 # Release Master
 
 Release Master provide insign on your release cycle for all the different environment you have
