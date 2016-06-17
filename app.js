@@ -43,6 +43,8 @@ var builds = require('./routes/builds');
 app.use('/builds', builds);
 var deployments = require('./routes/deployments');
 app.use('/deployments', deployments);
+var environments = require('./routes/environments');
+app.use('/environments', environments);
 
 var api = require('./routes/api');
 app.use('/api', api);

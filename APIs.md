@@ -54,3 +54,21 @@ GET /api/{applicationName}/all?q=docker&branch={branch}
 ```
 
 
+### Add environment
+
+```
+POST /environments 
+{
+  "name": "DEV",
+  "description": "This is a description"
+}
+```
+
+
+### List all environments
+
+```
+GET /environments
+```
+
+
