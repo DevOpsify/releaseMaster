@@ -6,16 +6,31 @@
 Release Master provide insign on your release cycle for all the different environment you have
 
 
+## Build local image and test app with local image
 
-## Start everything container
+```
+make build-local
+make start-local
+```
 
-1. docker-compose up -d
-2. access via localhost:3000 ( or docker-machine ip:3000 if using docker machine)
+## Build image and push to docker hub
 
-tl;dr
-## Start node development locally
+```
+make build
+make push
+```
 
-### Start DB
+## Start app with image from docker hub
+
+```
+make start
+```
+
+
+## Start the development environment
+
+### Start Mongo DB in docker
+
 ```
 # docker run --name mongodb -p 27017:27017 -d mongo
  
@@ -23,7 +38,7 @@ tl;dr
 ```
 
 
-### Run App
+### Start the Node.JS application
 
 ```
 1. Install bower if you don't have it locally using sudo npm install -g bower
@@ -33,58 +48,7 @@ tl;dr
 ```
 
 
-## Usage
+## [APIs] definition
 
-### Add application
-
-```
-POST /applications 
-{
-  "name": "ReleaseMaster",
-  "description": "This is a description"
-}
-```
-
-
-### List all applications
-
-```
-GET /applications
-```
-
-### Get all builds for application
-
-```
-GET /applications/{applicationName}
-```
-
-### Add build
-
-```
-POST /builds
-{
-  "application": "0",
-  "gitRepo": "git@github.com/test",
-  "gitSHA": "1111abcd1234",
-  "gitBranch": "master",
-  "dockerDigest": "sha256:12345678"
-}
-```
-
-
-### Query latest build for application
-
-```
-GET /api/{applicationName}/latest?q=docker&branch={branch}
-
-```
-
-### Query all buildz for application
-
-```
-GET /api/{applicationName}/all?q=docker&branch={branch}
-
-```
-
-
+[APIs]: <https://github.com/DevOpsify/releaseMaster/blob/master/APIs.md>
 

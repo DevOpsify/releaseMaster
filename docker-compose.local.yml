@@ -1,0 +1,11 @@
+version: '2'
+services:
+  mongodb:
+    image: mongo
+  web:
+    image: releasemaster
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+
