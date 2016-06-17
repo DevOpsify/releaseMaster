@@ -9,7 +9,7 @@ Release Master provide insign on your release cycle for all the different enviro
 ### Build local image and test app with local image
 
 ```
-$ make build-local
+# Requires docker-compose v1.7+
 $ make start-local
 ```
 
