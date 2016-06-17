@@ -40,15 +40,17 @@ POST /builds
 ### Query latest build for application
 
 ```
-GET /api/{applicationName}/latest?q=docker&branch={branch}
-
+GET /api/{applicationName}/latest
+GET /api/{applicationName}/latest?q=[docker|git|branch]
+GET /api/{applicationName}/latest?branch={branch}
+GET /api/{applicationName}/latest?q=[docker|git|branch]&branch={branch}
 ```
 
-### Query all buildz for application
+
+### Query all builds for application (not implemted yet)
 
 ```
 GET /api/{applicationName}/all?q=docker&branch={branch}
-
 ```
 
 
