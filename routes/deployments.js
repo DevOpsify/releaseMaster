@@ -3,12 +3,11 @@ var router = express.Router();
 
 var mongoose = require('mongoose');
 var dbschema = require('../models/dbschema.js');
-var Application = dbschema.Application;
-var Build = dbschema.Build;
+var Deployment = dbschema.Deployment;
 
 /* GET /properties listing. */
 router.get('/', function(req, res, next) {
-  Property.find(function (err, properties) {
+  Deployment.find(function (err, properties) {
     if (err) return next(err);
     res.json(properties);
   });
@@ -26,12 +25,12 @@ router.post('/', function(req, res, next) {
 
         env.properties.sort(function(a,b){
           var x=a.key; var y=b.key;
-          return ((x < y) ? -1 : ((x > y) ? 1 : 0));      
+          return ((x < y) ? -1 : ((x > y) ? 1 : 0));
         });
             env.save(function(err){
                 if (err) return next(err);
                 res.json(kv);
-            });            
+            });
         }else{
             res.json(null);
         }
@@ -64,7 +63,7 @@ router.put('/:id', function(req, res, next) {
     }
     environment.properties.sort(function(a,b){
       var x=a.key; var y=b.key;
-      return ((x < y) ? -1 : ((x > y) ? 1 : 0));      
+      return ((x < y) ? -1 : ((x > y) ? 1 : 0));
     });
     environment.save(function(err){
         if (err) return next (err);

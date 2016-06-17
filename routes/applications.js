@@ -4,7 +4,6 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var dbschema = require('../models/dbschema.js');
 var Application = dbschema.Application;
-var Build = dbschema.Build;
 
 /* GET /applications listing. */
 router.get('/', function(req, res, next) {
@@ -29,7 +28,7 @@ router.post('/', function(req, res, next) {
             var newApplication = new Application(req.body);
             newApplication.save(function(err){
                 if (err) return next(err);
-            }); 
+            });
             res.json(newApplication);
         }
     });
@@ -54,10 +53,10 @@ router.get('/:name', function(req, res, next) {
             if (err) return next(err);
             fulljson = { application : application.name,
                 description : application.description,
-                applicationid : application._id, 
+                applicationid : application._id,
                 builds : post };
             res.json(fulljson);
-        });        
+        });
     });
 });
 
@@ -77,10 +76,10 @@ router.get('/:name/:branch', function(req, res, next) {
             if (err) return next(err);
             fulljson = { application : application.name,
                 description : application.description,
-                applicationid : application._id, 
+                applicationid : application._id,
                 builds : post };
             res.json(fulljson);
-        });        
+        });
     });
 });
 
@@ -100,7 +99,7 @@ router.delete('/:id', function(req, res, next) {
         Application.findByIdAndRemove(req.params.id, req.body, function (err, post) {
             if (err) return next(err);
             res.json(post);
-        });        
+        });
     });
 
 });
