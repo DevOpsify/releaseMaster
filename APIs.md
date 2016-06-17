@@ -23,7 +23,7 @@ GET /applications
 GET /applications/{applicationName}
 ```
 
-### Add build
+### Add build info
 
 ```
 POST /builds
