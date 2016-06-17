@@ -1,6 +1,6 @@
-all: build-local
+all: start-local
 
-.PHONY: build push start build-local start-local clean
+.PHONY: build push start start-local clean
 
 
 TAG = 0.1
