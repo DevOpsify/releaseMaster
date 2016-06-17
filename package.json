@@ -16,6 +16,9 @@
     "mongoose": "^4.1.11",
     "mongoose-auto-increment": "^5.0.1",
     "morgan": "~1.6.1",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "browserify": "~10.2.3",
+    "gulp": "3.8.1",
+    "gulp-browserify": "0.5.1"
   }
 }

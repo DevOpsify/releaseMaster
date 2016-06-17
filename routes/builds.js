@@ -3,7 +3,6 @@ var router = express.Router();
 
 var mongoose = require('mongoose');
 var dbschema = require('../models/dbschema.js');
-var Application = dbschema.Application;
 var Build = dbschema.Build;
 
 /* GET /builds listing. */
@@ -19,7 +18,7 @@ router.post('/', function(req, res, next) {
   var newBuild = new Build(req.body);
   newBuild.save(function(err){
       if (err) return next(err);
-  }); 
+  });
   res.json(newBuild);
 
 });
@@ -33,8 +32,8 @@ router.post('/:id', function(req, res, next) {
         env.save(function(err){
             if (err) return next(err);
             res.json(env);
-        })    
-    }); 
+        })
+    });
 });
 
 
@@ -45,7 +44,7 @@ router.get('/:id', function(req, res, next) {
     .exec(function (err, post) {
     if (err) return next(err);
     res.json(post);
-  });    
+  });
 });
 
 /* PUT /builds/:id */
