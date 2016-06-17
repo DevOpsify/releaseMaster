@@ -5,11 +5,8 @@ all: build-local
 
 TAG = 0.1
 
-build-local:
-	docker build -t releasemaster .
-
 start-local:
-	docker-compose -f docker-compose.local.yml up
+	docker-compose -f docker-compose.local.yml up --build -d
 
 build:
 	docker build -t nextlink/releasemaster .
