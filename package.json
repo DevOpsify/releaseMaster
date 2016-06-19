@@ -4,6 +4,7 @@
   "author": "Max Cai",
   "private": true,
   "scripts": {
+    "postinstall": "./node_modules/bower/bin/bower install",
     "start": "node ./bin/www"
   },
   "dependencies": {
