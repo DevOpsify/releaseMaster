@@ -6,8 +6,6 @@ var dbschema = require('../models/dbschema.js');
 var Application = dbschema.Application;
 var Build = dbschema.Build;
 
-
-
 /* GET latest build for application. */
 /* Usage
 // GET /api/{applicationName}/latest?q=docker&branch={branch}
@@ -35,10 +33,10 @@ router.get('/:application/latest', function(req, res, next) {
       };
       console.log(build.length);
       switch (req.query.q) {
-        case "docker": 
+        case "docker":
           res.send(build[0].dockerDigest);
           break;
-        case "git": 
+        case "git":
           res.send(build[0].gitSHA);
           break;
         case "branch": 
