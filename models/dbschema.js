@@ -19,7 +19,6 @@ var BuildSchema = new Schema ({
   gitBranch: String,
   gitSHA: String,
   dockerDigest: String,
-  commits: String,
   created_at: { type: Date, default: Date.now },
 });
 BuildSchema.plugin(autoIncrement.plugin, 'Build');
