@@ -1,4 +1,4 @@
-# APIs
+# EndPoints
 
 ### Add application
 

@@ -20,7 +20,6 @@ router.post('/', function(req, res, next) {
       if (err) return next(err);
   });
   res.json(newBuild);
-
 });
 
 /* POST /builds  + property */
@@ -35,7 +34,6 @@ router.post('/:id', function(req, res, next) {
         })
     });
 });
-
 
 /* GET /builds/id */
 router.get('/:id', function(req, res, next) {

@@ -10,7 +10,6 @@ var app = express();
 
 var mongoose = require('mongoose');
 
- 
 
 if ( ! process.env.mongodb ) process.env.mongodb="mongodb";
 global.mongoURI='mongodb://'+process.env.mongodb+'/releasemaster';
@@ -48,7 +47,6 @@ app.use('/environments', environments);
 
 var api = require('./routes/api');
 app.use('/api', api);
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
