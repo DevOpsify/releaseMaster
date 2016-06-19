@@ -4,8 +4,9 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var dbschema = require('../models/dbschema.js');
 var Build = dbschema.Build;
+var Application = dbschema.Application;
 
-/* GET /builds listing. */
+/* Gets all builds */
 router.get('/', function(req, res, next) {
   Build.find(function (err, builds) {
     if (err) return next(err);
@@ -13,30 +14,28 @@ router.get('/', function(req, res, next) {
   });
 });
 
-/* POST /builds */
+/* Creates a build */
 router.post('/', function(req, res, next) {
-  var newBuild = new Build(req.body);
-  newBuild.save(function(err){
-      if (err) return next(err);
-  });
-  res.json(newBuild);
-});
-
-/* POST /builds  + property */
-router.post('/:id', function(req, res, next) {
-    Build.findById(req.params.id)
-    .exec(function(err,env){
+  /* Make sure application id exists */
+  Application.findById(req.body.application, function(err, application){
+    if (err) return next(err);
+    if (application) {
+      var newBuild = new Build(req.body);
+      newBuild.save(function(err){
         if (err) return next(err);
-        env.properties.push (req.body);
-        env.save(function(err){
-            if (err) return next(err);
-            res.json(env);
-        })
-    });
+      });
+      res.json(newBuild);
+    }else{
+      var res_json = {
+        "reason": "Can not find application with id " + req.body.application
+      }
+      res.status(400).json(res_json);
+    }
+  });
 });
 
-/* GET /builds/id */
-router.get('/:id', function(req, res, next) {
+/* Gets a build by its id */
+router.get('/id/:id', function(req, res, next) {
   Build.findById(req.params.id)
      .populate("application")
     .exec(function (err, post) {
@@ -45,17 +44,8 @@ router.get('/:id', function(req, res, next) {
   });
 });
 
-/* PUT /builds/:id */
-// Do we need this ?
-// router.put('/:id', function(req, res, next) {
-//   Build.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
-//     if (err) return next(err);
-//     res.json(post);
-//   });
-// });
-
 /* DELETE /builds/:id */
-router.delete('/:id', function(req, res, next) {
+router.delete('/id/:id', function(req, res, next) {
   Build.findByIdAndRemove(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
