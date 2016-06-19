@@ -59,7 +59,7 @@ $ npm install nodemon -g
 $ nodemon bin/www
 ```
 
-## [APIs] definition
+## [EendPoints] definition
 
-[APIs]: <https://github.com/DevOpsify/releaseMaster/blob/master/APIs.md>
+[EndPoints]: <https://github.com/DevOpsify/releaseMaster/blob/master/EndPoints.md>
 
