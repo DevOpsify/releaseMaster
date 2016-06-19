@@ -4,6 +4,7 @@
   "author": "Max Cai",
   "private": true,
   "scripts": {
+    "postinstall": "./node_modules/bower/bin/bower install",
     "start": "node ./bin/www"
   },
   "dependencies": {
@@ -21,7 +22,4 @@
     "gulp": "3.8.1",
     "gulp-browserify": "0.5.1"
   },
-  "scripts": {
-      "postinstall": "./node_modules/bower/bin/bower install"
-  }
 }
