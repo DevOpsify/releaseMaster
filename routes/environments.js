@@ -3,9 +3,9 @@ var router = express.Router();
 
 var mongoose = require('mongoose');
 var dbschema = require('../models/dbschema.js');
-var Environments = dbschema.Environments;
+var Environment = dbschema.Environment;
 
-/* GET /environments listing. */
+/* Gets all environments. */
 router.get('/', function(req, res, next) {
     Environment.find(function (err, environments) {
         if (err) return next(err);
@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
     });
 });
 
-/* POST /environments */
+/* Create a environment */
 // Check duplicate on name
 router.post('/', function(req, res, next) {
     console.log(req.body);
@@ -21,22 +21,22 @@ router.post('/', function(req, res, next) {
         if (err) return handleError(err);
         if (environment) {
             console.log("duplicate");
-            res.json(environment);
+            res.status(304).json(environment);
         }
         else
         {
             var newEnvironment = new Environment(req.body);
             newEnvironment.save(function(err){
                 if (err) return next(err);
+                res.json(newEnvironment);
             });
-            res.json(newEnvironment);
         }
     });
 });
 
 /* PUT /environments/:id */
 // Todo: check duplicate before update the environment name?
-router.put('/:id', function(req, res, next) {
+router.put('/id/:id', function(req, res, next) {
     Environment.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
         if (err) return next(err);
         res.json(post);
@@ -45,7 +45,7 @@ router.put('/:id', function(req, res, next) {
 
 /* DELETE /environments/:id */
 // Todo: delete all deployments for the environment
-router.delete('/:id', function(req, res, next) {
+router.delete('/id/:id', function(req, res, next) {
     Build.find({application: req.params.id}).remove().exec(function(err){
         Environment.findByIdAndRemove(req.params.id, function (err, post) {
             if (err) return next(err);
