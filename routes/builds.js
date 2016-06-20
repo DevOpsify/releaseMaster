@@ -38,9 +38,9 @@ router.post('/', function(req, res, next) {
 router.get('/id/:id', function(req, res, next) {
   Build.findById(req.params.id)
      .populate("application")
-    .exec(function (err, post) {
+    .exec(function (err, build) {
     if (err) return next(err);
-    res.json(post);
+    res.json(build);
   });
 });
 

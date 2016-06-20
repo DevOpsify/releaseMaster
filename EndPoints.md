@@ -72,3 +72,32 @@ GET /environments
 ```
 
 
+### List all deployments
+
+```
+GET /deployments
+```
+
+### List a deployments by its id
+
+```
+GET /deployments/id/<id>
+```
+
+### Create a deployment
+
+```
+POST /deployments
+
+{
+  "build": "1",
+  "environment": "0",
+  "qaResult": "Test Result"
+}
+```
+
+###  Delete a deployment by its id
+
+``` 
+DELETE /deployments/id/<id>
+```

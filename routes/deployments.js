@@ -5,96 +5,53 @@ var mongoose = require('mongoose');
 var dbschema = require('../models/dbschema.js');
 var Deployment = dbschema.Deployment;
 
-/* GET /properties listing. */
+/* Gets all deployments. */
 router.get('/', function(req, res, next) {
-  Deployment.find(function (err, properties) {
+  Deployment.find(function (err, deployment) {
     if (err) return next(err);
-    res.json(properties);
+    res.json(deployment);
   });
 });
 
 /* POST /properties */
 router.post('/', function(req, res, next) {
-    var kv = {"key":req.body.key, "value":req.body.value};
-    var env=Environment.findById(req.body.environment)
-    .exec(function(err,env){
-        if (err) return next(err);
-        console.log(kv.key);
-        if (env.properties.map(function(kv){return kv.key }).indexOf(kv.key)<0){
-            env.properties.push (kv);
-
-        env.properties.sort(function(a,b){
-          var x=a.key; var y=b.key;
-          return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    //TODO Need validation agaist build and env model for id check
+    var deployment = new Deployment(req.body);
+    if (null == deployment ){
+        var res_json = {
+            "reason": "invalid payload"
+        }
+        res.status(400).json(res_json);
+    }else {
+   	    deployment.save(function(err){
+            if (err) return next(err);
+            res.json(deployment);
         });
-            env.save(function(err){
-                if (err) return next(err);
-                res.json(kv);
-            });
+    }
+});
+
+/* Gets deployment by id */
+router.get('/id/:id', function(req, res, next) {
+    var deployment=Deployment.findById(req.params.id).populate("build").populate("environment").exec(function (err, deployment){
+        if (err) return next(err);
+        if(null == deployment){
+            res.status(404);
         }else{
-            res.json(null);
+            res.json(deployment);
         }
     });
 });
 
 
-/* GET /properties/id */
-router.get('/:id', function(req, res, next) {
-  // Property.findById(req.params.id, function (err, post) {
-  //   if (err) return next(err);
-  //   res.json(post);
-  // });
-    var env=Environment.findById(req.params.id).exec();
-    env.then(function(environment){
-        res.json(environment.properties);
-    });
-});
+/* Updates a deployment by its id */
+/* @SW need use case here */
 
-/* PUT /properties/:id */
-router.put('/:id', function(req, res, next) {
-  var env=Environment.findById(req.params.id).exec();
-  env.then(function (environment){
-
-    for(var i in environment.properties){
-      if (environment.properties[i].key == req.body.key){
-        environment.properties[i].value= req.body.value;
-        break;
-      }
-    }
-    environment.properties.sort(function(a,b){
-      var x=a.key; var y=b.key;
-      return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-    });
-    environment.save(function(err){
-        if (err) return next (err);
-        res.json (environment);
-    });
-
+/* Deletes a deployment by its id */
+router.delete('/id/:id', function(req, res, next) {
+  Deployment.findByIdAndRemove(req.params.id, req.body, function (err, deployment) {
+    if (err) return next(err);
+    res.json(deployment);
   });
-});
-
-/* DELETE /properties/:id */
-router.delete('/:id', function(req, res, next) {
-  // Property.findByIdAndRemove(req.params.id, req.body, function (err, post) {
-  //   if (err) return next(err);
-  //   res.json(post);
-  // });
-console.log(req.params.id);
-console.log(req.query.key);
-    var env=Environment.findById(req.params.id).exec();
-    env.then(function (environment){
-         // console.log(req);
-         environment.properties=environment.properties.filter(function(property){
-          return property.key != req.query.key;
-         });
-        // console.log(environment.properties);
-        // environment.properties.splice(0,1);
-        console.log(environment.properties);
-        environment.save(function(err){
-            if (err) return next (err);
-            res.json (environment);
-        });
-    });
 });
 
 module.exports = router;

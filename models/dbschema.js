@@ -31,9 +31,9 @@ var EnvironmentSchema = new Schema({
 EnvironmentSchema.plugin(autoIncrement.plugin, 'Environment');
 
 var DeploymentSchema = new Schema({
-  created_at: { type: Date, default: Date.now },
   build : { type: Number, ref: 'Build' },
   environment : { type: Number, ref: 'Environment' },
+  created_at: { type: Date, default: Date.now },  
   qaResult: String,
 });
 DeploymentSchema.plugin(autoIncrement.plugin, 'Deployment');
