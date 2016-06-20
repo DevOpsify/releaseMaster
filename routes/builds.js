@@ -52,4 +52,75 @@ router.delete('/id/:id', function(req, res, next) {
   });
 });
 
+
+/* Gets all builds for application*/
+router.get('/all/:application', function(req, res, next) {
+  Application.findOne( {'name': req.params.application }, function(err,application){
+    if (err) return next(err);
+    if (application==null) {
+        console.log("application not found");
+        res.end();
+        return;
+    };
+    queryString={application: application._id }
+    if (typeof req.query.branch !== 'undefined' && req.query.branch) {
+      queryString.gitBranch= req.query.branch;
+    }
+    Build.find (queryString)
+    .sort({"created_at": -1})
+    .exec(function (err, builds) {
+      if (err) return next(err);
+      res.json(builds);
+    });
+  });
+});
+
+
+/* GET latest build for application. */
+/* Usage
+// GET /api/{applicationName}/latest?q=docker&branch={branch}
+*/
+router.get('/latest/:application', function(req, res, next) {
+  Application.findOne( {'name': req.params.application }, function(err,application){
+    if (err) return next(err);
+    if (application==null) {
+        console.log("application not found");
+        res.end();
+        return;
+    };
+    queryString={application: application._id }
+    if (typeof req.query.branch !== 'undefined' && req.query.branch) {
+      queryString.gitBranch= req.query.branch;
+    }
+    Build.find (queryString)
+    .sort({"created_at": -1})
+    .limit(1)
+    .exec(function (err, build) {
+      if (err) return next(err);
+      if (build.length==0) {
+        var res_json = {
+            "reason": "build not found with criteria"
+        }
+        res.status(400).json(res_json);
+        return;
+      };
+      switch (req.query.q) {
+        case "docker":
+          res.send(build[0].dockerDigest);
+          break;
+        case "git":
+          res.send(build[0].gitSHA);
+          break;
+        case "branch":
+          res.send(build[0].gitBranch);
+          break;
+        case "timestamp":
+          res.send(build[0].created_at);
+          break;
+        default: res.json(build[0]);
+      }
+    });
+  });
+});
+
 module.exports = router;
