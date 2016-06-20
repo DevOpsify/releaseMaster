@@ -51,42 +51,4 @@ router.get('/:application/latest', function(req, res, next) {
   });
 });
 
-
-
-
-
-/* POST /builds */
-router.post('/', function(req, res, next) {
-  var newBuild = new Build(req.body);
-  newBuild.save(function(err){
-      if (err) return next(err);
-  }); 
-  res.json(newBuild);
-
-});
-
-/* POST /builds  + property */
-router.post('/:id', function(req, res, next) {
-    Build.findById(req.params.id)
-    .exec(function(err,env){
-        if (err) return next(err);
-        env.properties.push (req.body);
-        env.save(function(err){
-            if (err) return next(err);
-            res.json(env);
-        })    
-    }); 
-});
-
-
-/* GET /builds/id */
-router.get('/:id', function(req, res, next) {
-  Build.findById(req.params.id)
-     .populate("application")
-    .exec(function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });    
-});
-
 module.exports = router;
