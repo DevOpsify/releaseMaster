@@ -12,7 +12,7 @@ build:
 	docker build -t nextlink/releasemaster .
 	docker tag nextlink/releasemaster nextlink/releasemaster:$(TAG)
 
-push: releasemaster
+push: build
 	docker push nextlink/releasemaster
 	docker push nextlink/releasemaster:$(TAG)
 
