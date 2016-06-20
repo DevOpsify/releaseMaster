@@ -30,7 +30,6 @@ router.post('/', function(req, res, next) {
         else {
             var newApplication = new Application(req.body);
             newApplication.save(function(err){
-                console.log(err)
                 if (err) return next(err);
             });
             res.json(newApplication);
