@@ -19,7 +19,7 @@ router.get('/:application/latest', function(req, res, next) {
         return;
     };
     queryString={application: application._id }
-    if (req.query.branch !="") {
+    if (typeof req.query.branch !== 'undefined' && req.query.branch) {
       queryString.gitBranch= req.query.branch;
     }
     Build.find (queryString)
@@ -31,7 +31,6 @@ router.get('/:application/latest', function(req, res, next) {
         res.end();
         return;
       };
-      console.log(build.length);
       switch (req.query.q) {
         case "docker":
           res.send(build[0].dockerDigest);
