@@ -16,10 +16,10 @@ router.get('/', function(req, res, next) {
 
 /* Creates a build */
 router.post('/', function(req, res, next) {
-  /* Make sure application id exists */
-  Application.findById(req.body.application, function(err, application){
+  Application.findOne( {'name': req.body.application }, function(err,application){
     if (err) return next(err);
     if (application) {
+      req.body.application= application.id;
       var newBuild = new Build(req.body);
       newBuild.save(function(err){
         if (err) return next(err);
@@ -27,7 +27,7 @@ router.post('/', function(req, res, next) {
       res.json(newBuild);
     }else{
       var res_json = {
-        "reason": "Can not find application with id " + req.body.application
+        "reason": "Can not find application with name " + req.body.application
       }
       res.status(400).json(res_json);
     }
