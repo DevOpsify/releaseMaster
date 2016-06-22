@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var HTTPStatus = require('http-status');
 
 var mongoose = require('mongoose');
 var dbschema = require('../models/dbschema.js');
@@ -13,7 +14,7 @@ router.get('/', function(req, res, next) {
   });
 });
 
-/* POST /properties */
+/* Creats a deployment */
 router.post('/', function(req, res, next) {
     //TODO Need validation agaist build and env model for id check
     var deployment = new Deployment(req.body);
@@ -21,7 +22,7 @@ router.post('/', function(req, res, next) {
         var res_json = {
             "reason": "invalid payload"
         }
-        res.status(400).json(res_json);
+        res.status(HTTPStatus.BAD_REQUEST).json(res_json);
     }else {
    	    deployment.save(function(err){
             if (err) return next(err);
@@ -35,7 +36,7 @@ router.get('/id/:id', function(req, res, next) {
     var deployment=Deployment.findById(req.params.id).populate("build").populate("environment").exec(function (err, deployment){
         if (err) return next(err);
         if(null == deployment){
-            res.status(404);
+            res.status(HTTPStatus.NOT_FOUND);
         }else{
             res.json(deployment);
         }

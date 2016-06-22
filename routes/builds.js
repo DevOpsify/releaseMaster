@@ -1,10 +1,12 @@
 var express = require('express');
 var router = express.Router();
+var HTTPStatus = require('http-status');
 
 var mongoose = require('mongoose');
 var dbschema = require('../models/dbschema.js');
 var Build = dbschema.Build;
 var Application = dbschema.Application;
+
 
 /* Gets all builds */
 router.get('/', function(req, res, next) {
@@ -29,7 +31,7 @@ router.post('/', function(req, res, next) {
       var res_json = {
         "reason": "Can not find application with id " + req.body.application
       }
-      res.status(400).json(res_json);
+      res.status(HTTPStatus.BAD_REQUEST).json(res_json);
     }
   });
 });

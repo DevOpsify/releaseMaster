@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var HTTPStatus = require('http-status');
 
 var mongoose = require('mongoose');
 var dbschema = require('../models/dbschema.js');
@@ -25,7 +26,7 @@ router.post('/', function(req, res, next) {
             var res_json = {
                 "reason": "Appliction name already exists"
             }
-            res.status(400).json(res_json);
+            res.status(HTTPStatus.NOT_MODIFIED).json(res_json);
         }
         else {
             var newApplication = new Application(req.body);
@@ -48,7 +49,7 @@ router.get('/name/:name', function(req, res, next) {
     Application.findOne( {'name': req.params.name }, function(err,application){
         if (err) return next(err);
         if (application==null) {
-            res.status(404).end();
+            res.status(HTTPStatus.NOT_FOUND).end();
             return;
         }
 
@@ -71,7 +72,7 @@ router.get('/id/:id', function(req, res, next){
         if (err) return next(err);
         
         if (application==null) {
-            res.status(404).end();
+            res.status(HTTPStatus.NOT_FOUND).end();
             return;
         }
  
