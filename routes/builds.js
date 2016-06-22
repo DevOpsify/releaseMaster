@@ -10,10 +10,27 @@ var Application = dbschema.Application;
 
 /* Gets all builds */
 router.get('/', function(req, res, next) {
-  Build.find(function (err, builds) {
-    if (err) return next(err);
-    res.json(builds);
-  });
+  console.log(req.query);
+  if (req && req.query && req.query.application){ 
+    Application.findOne( {'name': req.query.application }, function(err,application){
+      if (application == null){
+        var res_json = {
+        "reason": "Can not find application with name " + req.query.application
+        }
+        res.status(HTTPStatus.NOT_FOUND).json(res_json);
+      }else {
+        Build.find({"application": application.id}, function (err, builds) {
+          if (err) return next(err);
+          res.json(builds);
+        });
+      }
+    });
+  }else {
+    Build.find(function (err, builds) {
+      if (err) return next(err);
+      res.json(builds);
+    });
+  }
 });
 
 /* Creates a build */
