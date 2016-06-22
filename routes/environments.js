@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var HTTPStatus = require('http-status');
 
 var mongoose = require('mongoose');
 var dbschema = require('../models/dbschema.js');
@@ -21,7 +22,7 @@ router.post('/', function(req, res, next) {
         if (err) return handleError(err);
         if (environment) {
             console.log("duplicate");
-            res.status(304).json(environment);
+            res.status(HTTPStatus.NOT_MODIFIED).json(environment);
         }
         else
         {
