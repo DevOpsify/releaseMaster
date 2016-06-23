@@ -32,6 +32,7 @@ EnvironmentSchema.plugin(autoIncrement.plugin, 'Environment');
 
 var DeploymentSchema = new Schema({
   build : { type: Number, ref: 'Build' },
+  application: {type: Number, ref: "Application"},
   environment : { type: Number, ref: 'Environment' },
   created_at: { type: Date, default: Date.now },  
   qaResult: String,
