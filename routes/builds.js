@@ -7,15 +7,58 @@ var dbschema = require('../models/dbschema.js');
 var Build = dbschema.Build;
 var Application = dbschema.Application;
 
-/* Gets all builds */
+/* Gets builds */
+/*
+GET /builds # return all builds
+GET /builds?application=APP # return all builds for APP
+GET /builds?application=APP&branch=master # return all builds for APP and branch master
+
+GET /builds?application=APP&latest # return latest build for APP
+GET /builds?application=APP&branch=master&latest # return latest builds for APP and branch master
+
+GET /builds?application=APP&latest&q=[docker|git|branch|timestamp] # return latest build info for APP
+GET /builds?application=APP&branch=master&latest&q=[docker|git|branch|timestamp] # return latest build info for APP and branch master
+*/
 router.get('/', function(req, res, next) {
  if (req && req.query && req.query.application){
     Application.findOne( {'name': req.query.application }, function (err, application) {
         if (application){
-            Build.find({"application":application.id}, function (err, builds) {
-                if (err) return next(err);
-                res.json(builds);
-            });
+          queryString={application: application._id }
+          if (req.query.branch) {
+            queryString.gitBranch= req.query.branch;
+          }
+          Build.find (queryString)
+          .sort({"created_at": -1})
+          .exec(function (err, builds) {
+            if (err) return next(err);
+            if (typeof req.query.latest !== 'undefined') {
+              // do not require any valute for "latest"
+              if (builds.length==0) {
+                var res_json = {
+                    "reason": "build not found with criteria"
+                }
+                res.status(HTTPStatus.NOT_FOUND).json(res_json);
+                return;
+              };
+              switch (req.query.q) {
+                case "docker":
+                  res.send(builds[0].dockerDigest);
+                  break;
+                case "git":
+                  res.send(builds[0].gitSHA);
+                  break;
+                case "branch":
+                  res.send(builds[0].gitBranch);
+                  break;
+                case "timestamp":
+                  res.send(builds[0].created_at);
+                  break;
+                default: res.json(builds[0]);
+              }
+              return;
+            }
+            res.json(builds);
+          });
         }else{
             var res_json = {
                 "reason": "can not found application with name : " + req.query.application
@@ -67,77 +110,6 @@ router.delete('/id/:id', function(req, res, next) {
   Build.findByIdAndRemove(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
-  });
-});
-
-
-/* Gets all builds for application*/
-router.get('/all/:application', function(req, res, next) {
-  Application.findOne( {'name': req.params.application }, function(err,application){
-    if (err) return next(err);
-    if (application==null) {
-        console.log("application not found");
-        res.end();
-        return;
-    };
-    queryString={application: application._id }
-    if (typeof req.query.branch !== 'undefined' && req.query.branch) {
-      queryString.gitBranch= req.query.branch;
-    }
-    Build.find (queryString)
-    .sort({"created_at": -1})
-    .exec(function (err, builds) {
-      if (err) return next(err);
-      res.json(builds);
-    });
-  });
-});
-
-
-/* GET latest build for application. */
-/* Usage
-// GET /api/{applicationName}/latest?q=docker&branch={branch}
-*/
-router.get('/latest/:application', function(req, res, next) {
-  Application.findOne( {'name': req.params.application }, function(err,application){
-    if (err) return next(err);
-    if (application==null) {
-        console.log("application not found");
-        res.end();
-        return;
-    };
-    queryString={application: application._id }
-    if (typeof req.query.branch !== 'undefined' && req.query.branch) {
-      queryString.gitBranch= req.query.branch;
-    }
-    Build.find (queryString)
-    .sort({"created_at": -1})
-    .limit(1)
-    .exec(function (err, build) {
-      if (err) return next(err);
-      if (build.length==0) {
-        var res_json = {
-            "reason": "build not found with criteria"
-        }
-        res.status(400).json(res_json);
-        return;
-      };
-      switch (req.query.q) {
-        case "docker":
-          res.send(build[0].dockerDigest);
-          break;
-        case "git":
-          res.send(build[0].gitSHA);
-          break;
-        case "branch":
-          res.send(build[0].gitBranch);
-          break;
-        case "timestamp":
-          res.send(build[0].created_at);
-          break;
-        default: res.json(build[0]);
-      }
-    });
   });
 });
 
