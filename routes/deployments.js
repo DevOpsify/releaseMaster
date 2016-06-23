@@ -5,34 +5,31 @@ var HTTPStatus = require('http-status');
 var mongoose = require('mongoose');
 var dbschema = require('../models/dbschema.js');
 var Deployment = dbschema.Deployment;
+var Application = dbschema.Application;
 
 /* Gets all deployments. */
 router.get('/', function(req, res, next) {
-  var filter= {};
   if (req && req.query && req.query.application){
-    var appliction = Application.findOne( {'name': req.query.application });
-    if (application){
-        filter.application = application.id
-    }else{
-        var res_json = {
-            "reason": "can not found application with name : " + req.query.application
+    Application.findOne( {'name': req.query.application }, function (err, application) {
+        if (application){
+            Deployment.find({"application":application.id}, function (err, deployment) {
+                if (err) return next(err);
+                res.json(deployment);
+            });
+        }else{
+            var res_json = {
+                "reason": "can not found application with name : " + req.query.application
+            }
+            res.status(HTTPStatus.NOT_FOUND).json(res_json);
+            return
         }
-        res.status(HTTPStatus.BAD_REQUEST).json(res_json);
-        return
-    }
-  }
- if (filter.application){
-     Deployment.find({"application":filter.application}, function (err, deployment) {
-        if (err) return next(err);
-        res.json(deployment);
     });
- }else {
+  }else{
     Deployment.find(function (err, deployment) {
         if (err) return next(err);
         res.json(deployment);
     });
- }
-
+  }
 });
 
 /* Creats a deployment */
