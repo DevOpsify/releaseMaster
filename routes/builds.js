@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var HTTPStatus = require('http-status');
 
 var mongoose = require('mongoose');
 var dbschema = require('../models/dbschema.js');
@@ -8,10 +9,27 @@ var Application = dbschema.Application;
 
 /* Gets all builds */
 router.get('/', function(req, res, next) {
-  Build.find(function (err, builds) {
-    if (err) return next(err);
-    res.json(builds);
-  });
+ if (req && req.query && req.query.application){
+    Application.findOne( {'name': req.query.application }, function (err, application) {
+        if (application){
+            Build.find({"application":application.id}, function (err, builds) {
+                if (err) return next(err);
+                res.json(builds);
+            });
+        }else{
+            var res_json = {
+                "reason": "can not found application with name : " + req.query.application
+            }
+            res.status(HTTPStatus.NOT_FOUND).json(res_json);
+            return
+        }
+    });
+  }else{
+    Build.find(function (err, builds) {
+        if (err) return next(err);
+        res.json(builds);
+    });
+  }
 });
 
 /* Creates a build */
@@ -29,7 +47,7 @@ router.post('/', function(req, res, next) {
       var res_json = {
         "reason": "Can not find application with name " + req.body.application
       }
-      res.status(400).json(res_json);
+      res.status(HTTPStatus.BAD_REQUEST).json(res_json);
     }
   });
 });
