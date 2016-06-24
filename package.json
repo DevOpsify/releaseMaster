@@ -21,6 +21,7 @@
     "serve-favicon": "~2.3.0",
     "browserify": "~10.2.3",
     "gulp": "3.8.1",
-    "gulp-browserify": "0.5.1"
+    "gulp-browserify": "0.5.1",
+    "async": "1.5.2"
   }
 }
