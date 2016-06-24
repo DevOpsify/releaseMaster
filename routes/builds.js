@@ -16,14 +16,15 @@ GET /builds?application=APP&branch=master # return all builds for APP and branch
 GET /builds?application=APP&latest # return latest build for APP
 GET /builds?application=APP&branch=master&latest # return latest builds for APP and branch master
 
-GET /builds?application=APP&latest&q=[docker|git|branch|timestamp] # return latest build info for APP
-GET /builds?application=APP&branch=master&latest&q=[docker|git|branch|timestamp] # return latest build info for APP and branch master
+GET /builds?application=APP&latest&part=[docker|git|branch|timestamp] # return latest build info for APP
+GET /builds?application=APP&branch=master&latest&part=[docker|git|branch|timestamp] # return latest build info for APP and branch master
 */
 router.get('/', function(req, res, next) {
  if (req && req.query && req.query.application){
     Application.findOne( {'name': req.query.application }, function (err, application) {
         if (application){
-          queryString={application: application._id }
+          var queryString={};
+          queryString.application=application._id
           if (req.query.branch) {
             queryString.gitBranch= req.query.branch;
           }
@@ -31,16 +32,13 @@ router.get('/', function(req, res, next) {
           .sort({"created_at": -1})
           .exec(function (err, builds) {
             if (err) return next(err);
-            if (typeof req.query.latest !== 'undefined') {
-              // do not require any valute for "latest"
+            if (req.query.latest == "") {
+              // lastes is defined, only get lastest one
               if (builds.length==0) {
-                var res_json = {
-                    "reason": "build not found with criteria"
-                }
-                res.status(HTTPStatus.NOT_FOUND).json(res_json);
-                return;
+                // Return empty array
+                return builds;
               };
-              switch (req.query.q) {
+              switch (req.query.part) {
                 case "docker":
                   res.send(builds[0].dockerDigest);
                   break;
