@@ -21,6 +21,7 @@ GET /builds?application=APP&branch=master&latest&part=[docker|git|branch|timesta
 */
 router.get('/', function(req, res, next) {
  if (req && req.query && req.query.application){
+   
     Application.findOne( {'name': req.query.application }, function (err, application) {
         if (application){
           var queryString={};
@@ -57,7 +58,7 @@ router.get('/', function(req, res, next) {
             }
             res.json(builds);
           });
-        }else{
+        } else {
             var res_json = {
                 "reason": "can not found application with name : " + req.query.application
             }
