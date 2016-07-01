@@ -22,3 +22,7 @@ start:
 clean:
 	docker rmi nextlink/releasemaster:$(TAG) || :
 	docker rmi nextlink/releasemaster || :
+
+test:
+	npm install
+	npm test
