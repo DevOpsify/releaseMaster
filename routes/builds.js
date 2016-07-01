@@ -48,7 +48,11 @@ router.get('/', function(req, res, next) {
           query.where("gitBranch", req.query.branch);
       }
       query.sort({"created_at": -1})
-      query.limit(10);
+      vat retsize=parseInt(req.query.limit);
+      if (retsize > 0)
+        query.limit(retsize)
+      else
+        query.limit(10);
       query.exec(callback);
     }
   ], function (error, builds){
