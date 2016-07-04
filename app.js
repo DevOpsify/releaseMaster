@@ -34,8 +34,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-var routes = require('./routes/index');
-app.use('/', routes);
+//var routes = require('./routes/index');
+//app.use('/', routes);
 var applications = require('./routes/applications');
 app.use('/applications', applications);
 var builds = require('./routes/builds');
@@ -44,6 +44,7 @@ var deployments = require('./routes/deployments');
 app.use('/deployments', deployments);
 var environments = require('./routes/environments');
 app.use('/environments', environments);
+app.use(express.static('views'));
 
 var api = require('./routes/api');
 app.use('/api', api);
