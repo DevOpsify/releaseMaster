@@ -27,26 +27,33 @@ router.get('/', function(req, res, next) {
        if (req.query.application){
           Application.findOne( {'name': req.query.application }, callback);
        }else {
-          callback(null, null);
+          var res_json = {
+            "reason": "missing parameter for application"
+          }
+          res.status(HTTPStatus.BAD_REQUEST).json(res_json);
+          return
        }
     },
     function (application, callback){
-      if (application){
-        var queryString={};
-        queryString.application = application._id
-        if (req.query.branch) {
-            queryString.gitBranch = req.query.branch;
-        }
-        Build.find (queryString).sort({"created_at": -1}).exec(callback)
-      } else if (req.query.application){
+      if (!application){
         var res_json = {
           "reason": "can not found application with name : " + req.query.application
         }
         res.status(HTTPStatus.NOT_FOUND).json(res_json);
         return
-      } else {
-         Build.find(callback);
       }
+      var query = Build.find({});
+      query.where("application",application._id);
+      if (req.query.branch) {
+          query.where("gitBranch", req.query.branch);
+      }
+      query.sort({"created_at": -1})
+      vat retsize=parseInt(req.query.limit);
+      if (retsize > 0)
+        query.limit(retsize)
+      else
+        query.limit(10);
+      query.exec(callback);
     }
   ], function (error, builds){
     if (error) return next(error);
