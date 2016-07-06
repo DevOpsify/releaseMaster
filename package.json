@@ -10,9 +10,10 @@
   "private": true,
   "scripts": {
     "postinstall": "./node_modules/bower/bin/bower install",
-    "test": "echo \"Error: no test specified\" && exit 0",
+    "test": "./node_modules/mocha/bin/mocha",
     "start": "node ./bin/www",
     "seed": "./node_modules/node-mongo-seeds/bin/seed"
+
   },
   "dependencies": {
     "async": "1.5.2",
@@ -34,6 +35,12 @@
     "request": "^2.75.0",
     "serve-favicon": "~2.3.0",
     "underscore": "1.8.3",
-    "vinyl-source-stream": "~1.1.0"
+    "vinyl-source-stream": "~1.1.0",
+    "gulp-browserify": "0.5.1"
+  },
+  "devDependencies": {
+    "mocha": "^2.5.3",
+    "should": "^9.0.2",
+    "supertest": "^1.2.0"
   }
 }
