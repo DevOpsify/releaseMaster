@@ -9,3 +9,5 @@ jspm_packages
 public/components
 
 .vscode/
+
+.idea/

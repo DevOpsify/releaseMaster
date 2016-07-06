@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "postinstall": "./node_modules/bower/bin/bower install",
-    "test": "echo \"Error: no test specified\" && exit 0",
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test": "./node_modules/mocha/bin/mocha"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -24,5 +24,10 @@
     "gulp": "3.8.1",
     "gulp-browserify": "0.5.1",
     "async": "1.5.2"
+  },
+  "devDependencies": {
+    "mocha": "^2.5.3",
+    "should": "^9.0.2",
+    "supertest": "^1.2.0"
   }
 }
