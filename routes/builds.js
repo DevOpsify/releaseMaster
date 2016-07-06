@@ -48,7 +48,7 @@ router.get('/', function(req, res, next) {
           query.where("gitBranch", req.query.branch);
       }
       query.sort({"created_at": -1})
-      vat retsize=parseInt(req.query.limit);
+      var retsize=parseInt(req.query.limit);
       if (retsize > 0)
         query.limit(retsize)
       else
