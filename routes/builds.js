@@ -3,6 +3,7 @@ var router = express.Router();
 var HTTPStatus = require('http-status');
 
 var async = require('async')
+var moment = require('moment');
 
 var mongoose = require('mongoose');
 var dbschema = require('../models/dbschema.js');
@@ -74,7 +75,14 @@ router.get('/', function(req, res, next) {
           break;
         default: res.json(builds[0]);
       }
-    } else{
+    } else if(req.query.format =="jenkins"){
+        var formatted_json ={}
+        for(var i=0; i<builds.length;i++){
+          formatted_json[builds[i].artifactUri]=builds[i].gitBranch+":"+moment(builds[i].created_at).fromNow()
+        }
+        res.json(formatted_json);
+    }
+    else{
       res.json(builds);
     }
   });

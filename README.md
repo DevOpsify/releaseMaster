@@ -33,7 +33,7 @@ $ make start
 
 ```
 $ docker run --name mongodb -p 27017:27017 -d mongo
-$ export mongodb=192.168.99.100 # docke machine IP
+$ export mongodb=127.0.0.1 # docke machine IP
 ```
 
 
