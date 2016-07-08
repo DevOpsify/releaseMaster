@@ -81,7 +81,7 @@ router.get('/', function(req, res, next) {
     } else if(req.query.format =="jenkins"){
         var formatted_json ={}
         for(var i=0; i<builds.length;i++){
-          formatted_json[builds[i].id]=builds[i].gitBranch+":"+moment(builds[i].created_at).fromNow()
+          formatted_json[builds[i].id]=builds[i].id+": "+builds[i].gitBranch+" - "+moment(builds[i].created_at).fromNow()
         }
         res.json(formatted_json);
     }
