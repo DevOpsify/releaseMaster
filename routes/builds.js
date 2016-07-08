@@ -61,6 +61,9 @@ router.get('/', function(req, res, next) {
     if (req.query.latest == "") {
       if (builds.length==0) return builds;
       switch (req.query.part) {
+        case "uri":
+          res.send(builds[0].artifactUri);
+          break;
         case "docker":
           res.send(builds[0].dockerDigest);
           break;
@@ -78,7 +81,7 @@ router.get('/', function(req, res, next) {
     } else if(req.query.format =="jenkins"){
         var formatted_json ={}
         for(var i=0; i<builds.length;i++){
-          formatted_json[builds[i].artifactUri]=builds[i].gitBranch+":"+moment(builds[i].created_at).fromNow()
+          formatted_json[builds[i].id]=builds[i].gitBranch+":"+moment(builds[i].created_at).fromNow()
         }
         res.json(formatted_json);
     }
@@ -120,7 +123,24 @@ router.get('/id/:id', function(req, res, next) {
       Build.findById(req.params.id).populate("application").exec(callback)
     }
   ],function (error, build){
-    res.json(build);
+    switch (req.query.part) {
+      case "uri":
+        res.send(build.artifactUri);
+        break;
+      case "docker":
+        res.send(build.dockerDigest);
+        break;
+      case "git":
+        res.send(build.gitSHA);
+        break;
+      case "branch":
+        res.send(build.gitBranch);
+        break;
+      case "timestamp":
+        res.send(build.created_at);
+        break;
+      default: res.json(build);
+    }
   });
 });
 
