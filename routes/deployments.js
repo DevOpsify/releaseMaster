@@ -9,6 +9,7 @@ var dbschema = require('../models/dbschema.js');
 var Deployment = dbschema.Deployment;
 var Application = dbschema.Application;
 var Build = dbschema.Build;
+var Environment = dbschema.Environment;
 
 /* Gets all deployments. */
 router.get('/', function(req, res, next) {
@@ -52,12 +53,15 @@ router.post('/', function(req, res, next) {
         return;
     }   
     async.waterfall([
-        function(callback){
+        function (callback){
             Build.findById(deployment.build).exec(callback)
         },
         function (build, callback){
+            Environment.findOne({ 'name': req.body.environment }).exec(function(err,environment){
             deployment.application= build.application;
+            deployment.environment = environment.id;
             deployment.save(callback);
+            })
         }
     ], function (error, deployment){
         if (error) return next(error);

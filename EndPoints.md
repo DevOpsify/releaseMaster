@@ -91,8 +91,17 @@ POST /deployments
 
 {
   "build": "1",
-  "environment": "0",
-  "qaResult": "Test Result"
+  "environment": "0"
+}
+```
+
+### Update a deployment
+
+```
+PUT /deployments/id/<id>
+
+{
+  "qaResult": "pass regression test"
 }
 ```
 
