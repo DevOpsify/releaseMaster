@@ -1,15 +1,4 @@
-<div class="alert alert-warning">{{message}}</div>
-<div class="row">
-    <ul class="col-sm-4">
-        <li class="list-group-item active">      Search: <input type="text" ng-model="search.name">
-        </li>
-        <li class="list-group-item" ng-repeat="application in applications | filter: search">
-            <span class="glyphicon glyphicon-chevron-right"></span>
-            <a href="#/{{application._id}}">{{application.name}}</a> <button class="btn btn-xs btn-danger" ng-click="remove($index)"><span class="glyphicon glyphicon-remove"></span>
-        </button>
-    </li>
-</ul>
+<div class="application" ng-repeat="app in application">
+    <li>application name : {{app.name}} and with description : {{app.description}} </li>
 </div>
-<div class="panel panel-default col-md-3">
-    New Application <input class="form-control" type="text" placeholder="Application Name" ng-model="newApplication"><button class="btn btn-primary" ng-click="save()">Create</button>
-</div>
+<div ng-show="!application">Can not found any application</div>
