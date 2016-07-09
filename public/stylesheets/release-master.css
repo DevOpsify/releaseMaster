@@ -1,0 +1,17 @@
+body {
+  padding: 15px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.application {
+  float: left;
+  width: 46%;
+  height: 200px;
+  margin: 1em;
+  padding: 5px;
+  background: #fcf9ce;
+}

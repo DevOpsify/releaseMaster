@@ -1,19 +1,30 @@
-var app = angular.module('release-master', ['ng']);
+var controllers = require('./controllers');
+var directives = require('./directives');
+var services = require('./services');
 
-app.directive('application', function() {
-  return {
-    controller: 'applicationController',
-    template: '<div class="application" ng-repeat="app in application">' +
-              '  <li>application name : {{app.name}} and with description : {{app.description}} </li>' +
-              '</div>' +
-              '<div ng-show="!application">' +
-              ' Can not found any application'+
-              '</div>'
-  }
+var _ = require('underscore');
+
+var components = angular.module('release-master.components', ['ng']);
+
+_.each(controllers, function(controller, name) {
+  components.controller(name, controller);
 });
 
-app.controller('applicationController', function($scope, $http) {
-  $http.get('/applications').success(function(data) {
-    $scope.application = data;
-  });
+_.each(directives, function(directive, name) {
+  components.directive(name, directive);
 });
+
+_.each(services, function(factory, name) {
+  components.factory(name, factory);
+});
+
+var app = angular.module('release-master', ['release-master.components', 'ngRoute']);
+
+app.config(function($routeProvider) {
+  $routeProvider.
+    when('/product/:id', {
+      template: '<product-details></product-details>'
+    });
+});
+
+
