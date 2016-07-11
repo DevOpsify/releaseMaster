@@ -43,6 +43,3 @@ module.exports.Application = connection.model('Application', ApplicationSchema);
 module.exports.Build = connection.model('Build', BuildSchema);
 module.exports.Deployment = connection.model('Deployment', DeploymentSchema);
 module.exports.Environment = connection.model('Environment', EnvironmentSchema);
-// module.exports.Application = mongoose.model('Application', ApplicationSchema);
-// module.exports.Build = mongoose.model('Build', BuildSchema);
-// module.exports.Deployment = mongoose.model('Deployment', DeploymentSchema);

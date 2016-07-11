@@ -1,4 +1,5 @@
 <div class="application" ng-repeat="app in application">
-    <li>application name : {{app.name}} and with description : {{app.description}} </li>
+    <h1>{{app.name}}</h1>
+    <div>{{app.description}}</div>
 </div>
 <div ng-show="!application">Can not found any application</div>

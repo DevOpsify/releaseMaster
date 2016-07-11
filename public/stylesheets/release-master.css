@@ -1,5 +1,5 @@
 body {
-  padding: 15px;
+  padding: 1%;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -9,9 +9,9 @@ a {
 
 .application {
   float: left;
-  width: 46%;
+  width: 47%;
   height: 200px;
   margin: 1em;
-  padding: 5px;
+  padding: 1%;
   background: #fcf9ce;
 }
