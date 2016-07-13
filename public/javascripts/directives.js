@@ -4,3 +4,10 @@ exports.application = function() {
     templateUrl: '/views/applications.html'
   };
 };
+
+exports.deployment = function() {
+  return {
+    controller: 'deploymentController',
+    templateUrl: '/views/deployment.html'
+  };
+};

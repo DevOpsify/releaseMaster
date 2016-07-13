@@ -62,7 +62,7 @@ router.post('/', function(req, res, next) {
 router.get('/id/:id', function(req, res, next) {
      async.waterfall([
          function (callback) {
-            Deployment.findById(req.params.id).populate("build").populate("environment").exec(callback);
+            Deployment.findById(req.params.id).populate("build").populate("application").populate("environment").exec(callback);
          }
      ], function (error, deployment){
         if (error) return next(error);

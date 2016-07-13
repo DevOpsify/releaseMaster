@@ -22,8 +22,11 @@ var app = angular.module('release-master', ['release-master.components', 'ngRout
 
 app.config(function($routeProvider) {
   $routeProvider.
-    when('/product/:id', {
-      template: '<product-details></product-details>'
+    when('/', {
+      template: '<application></application>'
+    }).
+    when('/deployment/:env', {
+      template: '<deployment></deployment>'
     });
 });
 

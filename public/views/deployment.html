@@ -1,0 +1,7 @@
+<div class="deployment" ng-repeat="dep in deployment">
+    <h1>Application name {{dep.application}}</h1>
+    <div>build name{{dep.build}}</div>
+    <div>env {{dep.environment}}</div>
+    <div>
+</div>
+<div ng-if="!deployment.length">Can not found any deployment for this application</div>

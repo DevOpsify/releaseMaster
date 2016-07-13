@@ -1,5 +1,12 @@
 <div class="application" ng-repeat="app in application">
     <h1>{{app.name}}</h1>
     <div>{{app.description}}</div>
+    <div>
+    <!-- hard coded for now, but should have list of env associated with application -->
+    <h3> Environments </h3>
+    <a class="env" ng-href="#/deployment/{{app.name}}">Development</a>
+    <a class="env" ng-href="#/deployment/{{app.name}}">QA</a>
+    <a class="env" ng-href="#/deployment/{{app.name}}">Staging</a>
+    <a class="env" ng-href="#/deployment/{{app.name}}">Production</a>
 </div>
-<div ng-show="!application">Can not found any application</div>
+<div ng-if="!application.length">Can not found any application</div>
