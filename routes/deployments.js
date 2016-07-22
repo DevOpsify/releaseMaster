@@ -8,6 +8,8 @@ var mongoose = require('mongoose');
 var dbschema = require('../models/dbschema.js');
 var Deployment = dbschema.Deployment;
 var Application = dbschema.Application;
+var Build = dbschema.Build;
+var Environment = dbschema.Environment;
 
 /* Gets all deployments. */
 router.get('/', function(req, res, next) {
@@ -42,15 +44,24 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
     //TODO Need validation agaist build and env model for id check
     var deployment = new Deployment(req.body);
-    if (null == deployment ){
+
+    if (null == deployment.build  ){
         var res_json = {
             "reason": "invalid payload"
         }
         res.status(HTTPStatus.BAD_REQUEST).json(res_json);
+        return;
     }   
     async.waterfall([
         function (callback){
-            deployment.save(callback);
+            Build.findById(deployment.build).exec(callback)
+        },
+        function (build, callback){
+            Environment.findOne({ 'name': req.body.environment }).exec(function(err,environment){
+                deployment.application= build.application;
+                deployment.environment = environment.id;
+                deployment.save(callback);
+            })
         }
     ], function (error, deployment){
         if (error) return next(error);
@@ -78,8 +89,23 @@ router.get('/id/:id', function(req, res, next) {
 });
 
 
-/* Updates a deployment by its id */
-/* @SW need use case here */
+/* Updates a deployment QA result by its id */
+router.put('/id/:id', function(req, res, next) {
+    console.log (req.params.id);
+    async.waterfall([
+        function (callback) {
+            Deployment.findById(req.params.id).exec(callback);
+        },
+        function (deployment,callback) {
+            deployment.qaResult=req.body.qaResult;
+            deployment.last_update=Date.now();
+            deployment.save(callback);
+        }
+    ], function(err, deployment){
+         if (err) return next(err);
+        res.json(deployment);
+    });
+});
 
 /* Deletes a deployment by its id */
 router.delete('/id/:id', function(req, res, next) {
