@@ -25,6 +25,9 @@ app.config(function($routeProvider) {
     when('/', {
       template: '<application></application>'
     }).
+    when('/builds/:application', {
+      template: '<builds></builds>'
+    }).
     when('/deployment/:env', {
       template: '<deployment></deployment>'
     });

@@ -86,6 +86,12 @@ router.get('/', function(req, res, next) {
         res.json(formatted_json);
     }
     else{
+      //var b=builds.toObject();
+      for (var i = 0; i < builds.length; i++) {
+        var build= builds[i].toObject();
+        build.FromNow= moment(builds[i].created_at).fromNow();
+        builds[i]=build;
+      }
       res.json(builds);
     }
   });

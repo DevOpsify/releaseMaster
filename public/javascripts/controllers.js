@@ -22,3 +22,17 @@ exports.deploymentController = function($scope, $routeParams, $http) {
     $scope.$emit('deploymentController');
   }, 0);
 };
+
+exports.buildController = function($scope, $routeParams, $http) {
+  var encoded = encodeURIComponent($routeParams.env);
+
+  $http.
+    get('/builds/?application=' + encoded).
+    success(function(data) {
+      $scope.build = data;
+    });
+
+  setTimeout(function() {
+    $scope.$emit('buildController');
+  }, 0);
+};

@@ -1,5 +1,5 @@
 <div class="application" ng-repeat="app in application">
-    <h1>{{app.name}}</h1>
+    <h1><a class="env" ng-href="#/builds/{{app.name}}">{{app.name}}</a></h1>
     <div>{{app.description}}</div>
     <div>
     <!-- hard coded for now, but should have list of env associated with application -->
