@@ -58,6 +58,8 @@ router.post('/', function(req, res, next) {
         },
         function (build, callback){
             Environment.findOne({ 'name': req.body.environment }).exec(function(err,environment){
+                if (err) return next(error);
+
                 deployment.application= build.application;
                 deployment.environment = environment.id;
                 deployment.save(callback);

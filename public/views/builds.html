@@ -1,0 +1,29 @@
+Builds for  {{application}}
+
+
+  <hr/>
+  <table class="builds">
+    <tr>
+      <th>
+        Build #
+      </th>
+      <th>
+        <button ng-click="sortBy('gitBranch')">Branch</button>
+        <span class="sortorder" ng-show="propertyName === 'gitBranch'" ng-class="{reverse: reverse}"></span>
+      </th>
+      <th>
+        GitSHA
+      </th>
+      <th>
+        <button ng-click="sortBy('created_at')">Age</button>
+        <span class="sortorder" ng-show="propertyName === 'created_at'" ng-class="{reverse: reverse}"></span>
+      </th>
+    </tr>
+    <tr ng-repeat="build in builds | orderBy:propertyName:reverse">
+      <td>{{build._id}}</td>
+      <td>{{build.gitBranch}}</td>
+      <td>{{build.gitSHA}}</td>
+      <td>{{build.FromNow}}</td>
+    </tr>
+  </table>
+

@@ -1562,7 +1562,6 @@ exports.applicationController = function($scope, $routeParams, $http) {
 
 exports.deploymentController = function($scope, $routeParams, $http) {
   var encoded = encodeURIComponent($routeParams.env);
-
   $http.
     get('/deployments/?application=' + encoded).
     success(function(data) {
@@ -1573,6 +1572,30 @@ exports.deploymentController = function($scope, $routeParams, $http) {
     $scope.$emit('deploymentController');
   }, 0);
 };
+
+exports.buildController = function($scope, $routeParams, $http) {
+  var encoded = encodeURIComponent($routeParams.application);
+
+  $http.
+    get('/builds/?application=' + encoded).
+    success(function(data) {
+      $scope.builds = data;
+      $scope.application=$routeParams.application;
+      $scope.propertyName = 'created_at';
+      $scope.reverse = true;
+
+  $scope.sortBy = function(propertyName) {
+    $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+    $scope.propertyName = propertyName;
+  };
+
+      });
+
+  setTimeout(function() {
+    $scope.$emit('buildController');
+  }, 0);
+};
+
 },{}],3:[function(require,module,exports){
 exports.application = function() {
   return {
@@ -1585,6 +1608,13 @@ exports.deployment = function() {
   return {
     controller: 'deploymentController',
     templateUrl: '/views/deployment.html'
+  };
+};
+
+exports.build = function() {
+  return {
+    controller: 'buildController',
+    templateUrl: '/views/builds.html'
   };
 };
 
@@ -1612,9 +1642,13 @@ _.each(services, function(factory, name) {
 var app = angular.module('release-master', ['release-master.components', 'ngRoute']);
 
 app.config(function($routeProvider) {
+
   $routeProvider.
     when('/', {
       template: '<application></application>'
+    }).
+    when('/builds/:application', {
+      template: '<build></build>'
     }).
     when('/deployment/:env', {
       template: '<deployment></deployment>'
