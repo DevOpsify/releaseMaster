@@ -1,13 +1,15 @@
 var gulp = require('gulp')
-var browserify = require ('gulp-browserfy');
+var browserify = require('browserify');
+var source     = require('vinyl-source-stream');
 
-gulp.task ('browserify', function() {
-  return gulp.
-    src('./app.js').
-    pipe(browserify()).
-    pipe(gulp.dest('./bin'));
+
+gulp.task('browserify', function() {
+    return browserify({ entries: ["./public/javascripts/index.js"] })
+        .bundle()
+        .pipe(source('index.js'))
+        .pipe(gulp.dest('./public/javascripts/bin/'))
 });
 
 gulp.task('watch', function() {
-  gulp.watch(['./*.js'], ['browserify']);
-})
+  gulp.watch(['./public/javascripts/*.js'], ['browserify']);
+});
