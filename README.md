@@ -62,3 +62,13 @@ $ nodemon bin/www
 ## [EndPoints]
 [EndPoints]: <./EndPoints.md>
 
+
+## Development
+
+### Frontend development
+
+1. Install dependency use 
+` npm install`
+
+2. Start gulp
+`gulp watch`
