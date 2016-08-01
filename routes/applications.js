@@ -29,8 +29,11 @@ router.post('/', function(req, res, next) {
             Application.findOne({ 'name': req.body.name }, 'name', callback);
         }
     ],function (err, application){
-        if (err) return handleError(err);
-        if (application) res.status(HTTPStatus.NOT_MODIFIED).end();
+        if (err) return next(err);
+        if (application) {
+            res.status(HTTPStatus.NOT_MODIFIED).end();
+            return;
+        }
         var newApplication = new Application(req.body);
         newApplication.save(function(err){ if (err) return next(err); });
         res.json(newApplication);

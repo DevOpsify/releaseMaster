@@ -6,6 +6,10 @@ var _ = require('underscore');
 
 var components = angular.module('release-master.components', ['ng']);
 
+_.each(services, function(factory, name) {
+  components.factory(name, factory);
+});
+
 _.each(controllers, function(controller, name) {
   components.controller(name, controller);
 });
@@ -14,11 +18,9 @@ _.each(directives, function(directive, name) {
   components.directive(name, directive);
 });
 
-_.each(services, function(factory, name) {
-  components.factory(name, factory);
-});
+var app = angular.module('release-master', ['release-master.components', 'ngRoute', 'ngResource']);
 
-var app = angular.module('release-master', ['release-master.components', 'ngRoute']);
+
 
 app.config(function($routeProvider) {
   $routeProvider.

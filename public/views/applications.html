@@ -1,4 +1,6 @@
-<div class="application" ng-repeat="app in application">
+<div class="alert alert-warning">{{message}}</div>
+
+<div class="application" ng-repeat="app in applications">
     <h1><a class="env" ng-href="#/builds/{{app.name}}">{{app.name}}</a></h1>
     <div>{{app.description}}</div>
     <div>
@@ -9,4 +11,10 @@
     <a class="env" ng-href="#/deployment/{{app.name}}">Staging</a>
     <a class="env" ng-href="#/deployment/{{app.name}}">Production</a>
 </div>
-<div ng-if="!application.length">Can not found any application</div>
+</div>
+
+<div class="panel panel-default col-md-3 application">
+    New Application <input class="form-control" type="text" placeholder="Application Name" ng-model="appName">
+    <input class="form-control" type="text" placeholder="Application Description" ng-model="appDescription">
+    <button class="btn btn-primary" ng-click="addApplication()">Add</button>
+</div>
