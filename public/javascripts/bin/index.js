@@ -1584,13 +1584,11 @@ exports.buildController = function($scope, $routeParams, $http) {
       $scope.propertyName = 'created_at';
       $scope.reverse = true;
 
-  $scope.sortBy = function(propertyName) {
-    $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
-    $scope.propertyName = propertyName;
-  };
-
-      });
-
+      $scope.sortBy = function(propertyName) {
+        $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+        $scope.propertyName = propertyName;
+      };
+    });
   setTimeout(function() {
     $scope.$emit('buildController');
   }, 0);
@@ -1605,6 +1603,7 @@ exports.application = function() {
 };
 
 exports.deployment = function() {
+
   return {
     controller: 'deploymentController',
     templateUrl: '/views/deployment.html'
@@ -1642,7 +1641,6 @@ _.each(services, function(factory, name) {
 var app = angular.module('release-master', ['release-master.components', 'ngRoute']);
 
 app.config(function($routeProvider) {
-
   $routeProvider.
     when('/', {
       template: '<application></application>'

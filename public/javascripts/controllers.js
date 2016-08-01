@@ -11,7 +11,6 @@ exports.applicationController = function($scope, $routeParams, $http) {
 
 exports.deploymentController = function($scope, $routeParams, $http) {
   var encoded = encodeURIComponent($routeParams.env);
-
   $http.
     get('/deployments/?application=' + encoded).
     success(function(data) {
@@ -24,14 +23,21 @@ exports.deploymentController = function($scope, $routeParams, $http) {
 };
 
 exports.buildController = function($scope, $routeParams, $http) {
-  var encoded = encodeURIComponent($routeParams.env);
+  var encoded = encodeURIComponent($routeParams.application);
 
   $http.
     get('/builds/?application=' + encoded).
     success(function(data) {
-      $scope.build = data;
-    });
+      $scope.builds = data;
+      $scope.application=$routeParams.application;
+      $scope.propertyName = 'created_at';
+      $scope.reverse = true;
 
+      $scope.sortBy = function(propertyName) {
+        $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+        $scope.propertyName = propertyName;
+      };
+    });
   setTimeout(function() {
     $scope.$emit('buildController');
   }, 0);
