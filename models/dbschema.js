@@ -14,6 +14,7 @@ ApplicationSchema.plugin(autoIncrement.plugin, 'Application');
 
 var BuildSchema = new Schema ({
   application : { type: Number, ref: 'Application' },
+  buildID: String,
   artifactUri : String,
   gitRepo: String,
   gitBranch: String,
@@ -24,6 +25,7 @@ var BuildSchema = new Schema ({
 BuildSchema.plugin(autoIncrement.plugin, 'Build');
 
 var EnvironmentSchema = new Schema({
+  application : { type: Number, ref: 'Application' },
   name: String,
   updated_at: { type: Date, default: Date.now },
   description: String,
