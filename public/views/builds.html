@@ -1,8 +1,11 @@
-Builds for  {{application}}
-
+{{application}}
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#/builds/{{application}}">Builds</a></li>
+  <li><a href="#/deployment/{{application}}">Deployments</a></li>
+</ul>
 
   <hr/>
-  <table class="builds">
+  <table class="table table-bordered">
     <tr>
       <th>
         Build #
@@ -18,12 +21,39 @@ Builds for  {{application}}
         <button ng-click="sortBy('created_at')">Age</button>
         <span class="sortorder" ng-show="propertyName === 'created_at'" ng-class="{reverse: reverse}"></span>
       </th>
+      <th>
+        Action
+      </th>
     </tr>
     <tr ng-repeat="build in builds | orderBy:propertyName:reverse">
       <td>{{build._id}}</td>
       <td>{{build.gitBranch}}</td>
       <td>{{build.gitSHA}}</td>
-      <td>{{build.FromNow}}</td>
+      <td>{{build.FromNow}} <span class="glyphicon glyphicon-question-sign" title="{{build.created_at}}"></span></td>
+      <td><button>deploy to</button></td>
     </tr>
   </table>
+
+<nav aria-label="Page navigation">
+  <ul class="pagination">
+    <li class="page-item" ng-hide="currentpage<=1">
+      <a class="page-link" href="#/builds/{{application}}/{{currentpage - 1}}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>
+    <li class="page-item" ng-hide="currentpage<=1">
+    <a class="page-link" href="#/builds/{{application}}/{{currentpage - 1}}">{{currentpage - 1}}</a></li>
+    <li class="page-item active">
+    <a class="page-link" href="#/builds/{{application}}/{{currentpage}}">{{currentpage}}</a></li>
+    <li class="page-item" ng-hide="currentpage>=pagecount">
+    <a class="page-link" href="#/builds/{{application}}/{{currentpage + 1}}">{{currentpage + 1}}</a></li>
+    <li class="page-item" ng-hide="currentpage>=pagecount">
+      <a class="page-link" href="#/builds/{{application}}/{{currentpage + 1}}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>
+  </ul>
+</nav>
 

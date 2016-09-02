@@ -21,7 +21,44 @@ GET /builds?application=APP&branch=master&latest # return latest builds for APP 
 
 GET /builds?application=APP&latest&part=[docker|git|branch|timestamp] # return latest build info for APP
 GET /builds?application=APP&branch=master&latest&part=[docker|git|branch|timestamp] # return latest build info for APP and branch master
+
+GET /builds?application=APP&page=1 # return builds for APP
+
 */
+
+  var pagesize=10;
+
+/* GET/builds/count?application=APP
+*/
+router.get('/count', function(req, res, next) {
+  async.waterfall([
+    function(callback){
+        if (req.query.application){
+          Application.findOne( {'name': req.query.application }, callback);
+        } else {
+          var res_json = {
+          "reason": "missing parameter for application"
+        }
+        res.status(HTTPStatus.BAD_REQUEST).json(res_json);
+        return;
+      }
+    },
+    function (application, callback){
+      if (!application){
+        var res_json = {
+          "reason": "can not found application with name : " + req.query.application
+        }
+        res.status(HTTPStatus.NOT_FOUND).json(res_json);
+        return
+      }
+      Build.where("application",application._id).count(callback);
+    }
+  ], function (error, count){
+    if (error) return next(error);
+    res.send(new Number(Math.ceil(count/pagesize)));
+  });
+});
+
 router.get('/', function(req, res, next) {
   async.waterfall([
     function(callback){
@@ -43,17 +80,18 @@ router.get('/', function(req, res, next) {
         res.status(HTTPStatus.NOT_FOUND).json(res_json);
         return
       }
+
+
       var query = Build.find({});
       query.where("application",application._id);
       if (req.query.branch) {
           query.where("gitBranch", req.query.branch);
       }
       query.sort({"created_at": -1})
-      var retsize=parseInt(req.query.limit);
-      if (retsize > 0)
-        query.limit(retsize)
-      else
-        query.limit(10);
+      var page=parseInt(req.query.page) -1;
+      if ( page>0 )
+        query.skip(page*pagesize)
+      query.limit(pagesize);
       query.exec(callback);
     }
   ], function (error, builds){
