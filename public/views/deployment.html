@@ -1,11 +1,10 @@
-{{application}}
+<h3>{{application}}</h3>
 <ul class="nav nav-tabs">
   <li><a href="#/builds/{{application}}">Builds</a></li>
   <li class="active"><a href="#/deployment/{{application}}">Deployments</a></li>
 </ul>
 
 
-  <hr/>
   <table class="table table-bordered">
     <tr>
       <th>
@@ -27,10 +26,30 @@
     </tr>
     <tr ng-repeat="environment in environments">
       <td>{{environment.name}}  <span class="glyphicon glyphicon-question-sign" title="{{environment.description}}"></span>
-</td>
+      </td>
       <td>{{environment.gitBranch}}</td>
       <td></td>
       <td>{{environment.FromNow}} <span class="glyphicon glyphicon-question-sign" title="{{environment.updated_at}}"></span></td>
-      <td><button>deploy</button></td>
+      <td>
+<select ng-model="selectedName" ng-options="x for x in builds">
+</select>
+<button>deploy</button>
+      </td>
     </tr>
   </table>
+
+
+<div class="panel panel-default col-md-3">
+<form >
+    <label class="control-label">Environment:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" ng-model="envName" placeholder="Environment Name">
+    </div>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" ng-model="envDesc" placeholder="Environment Description">
+    </div>
+    <div class="col-sm-10">
+      <button type="submit" class="btn btn-primary" ng-click="addEnvironment()">Add</button>
+    </div>
+</form>
+</div>
