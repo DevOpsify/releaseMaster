@@ -40,21 +40,29 @@ exports.deploymentController = function($scope, $routeParams, $http) {
 };
 
 exports.buildController = function($scope, $routeParams, $http) {
-  var encoded = encodeURIComponent($routeParams.application);
+  var application = encodeURIComponent($routeParams.application);
+  var page = parseInt('0'+encodeURIComponent($routeParams.page));
+  if (page <=0)
+    page=1;
   $scope.sortBy = function(propertyName) {
     $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
     $scope.propertyName = propertyName;
   };
 
   $http.
-    get('/builds/?application=' + encoded).
-    success(function(data) {
-      $scope.builds = data;
-      $scope.application=$routeParams.application;
-      $scope.propertyName = 'created_at';
-      $scope.reverse = true;
+    get('/builds/count/?application=' + application ).
+    success(function(count) {
+      $scope.pagecount=count;
+      $scope.currentpage=page;
+      $http.get('/builds/?application=' + application + '&page=' + page).
+      success(function(data) {
+        $scope.builds = data;
+        $scope.application=$routeParams.application;
+        $scope.propertyName = 'created_at';
+        $scope.reverse = true;
 
-    });
+      });
+  });
   setTimeout(function() {
     $scope.$emit('buildController');
   }, 0);
