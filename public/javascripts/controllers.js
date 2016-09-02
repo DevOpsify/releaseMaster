@@ -26,11 +26,12 @@ exports.applicationController = function($scope, $routeParams, $http, Applicatio
 };
 
 exports.deploymentController = function($scope, $routeParams, $http) {
-  var encoded = encodeURIComponent($routeParams.env);
+  var encoded = encodeURIComponent($routeParams.application);
   $http.
-    get('/deployments/?application=' + encoded).
+    get('/environments/?application=' + encoded).
     success(function(data) {
-      $scope.deployment = data;
+      $scope.environments = data;
+      $scope.application=$routeParams.application;
     });
 
   setTimeout(function() {
