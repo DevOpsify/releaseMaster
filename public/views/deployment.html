@@ -1,8 +1,32 @@
-Deployment
-<div class="deployment" ng-repeat="dep in deployment">
-    <h1>Application name {{dep.application}}</h1>
-    <div>build name{{dep.build}}</div>
-    <div>env {{dep.environment}}</div>
-    <div>
-</div>
-<div ng-if="!deployment.length">Can not found any deployment for this application</div>
+Deployment Status for  {{application}}
+
+
+  <hr/>
+  <table class="table table-bordered">
+    <tr>
+      <th>
+        Env Name
+      </th>
+      <th>
+        <button ng-click="sortBy('gitBranch')">Status</button>
+      </th>
+      <th>
+        Builds
+      </th>
+      <th>
+        <button ng-click="sortBy('created_at')">Last Deployment</button>
+      </th>
+      <th>
+        Action
+      </th>
+
+    </tr>
+    <tr ng-repeat="environment in environments">
+      <td>{{environment.name}}  <span class="glyphicon glyphicon-question-sign" title="{{environment.description}}"></span>
+</td>
+      <td>{{environment.gitBranch}}</td>
+      <td></td>
+      <td>{{environment.FromNow}} <span class="glyphicon glyphicon-question-sign" title="{{environment.updated_at}}"></span></td>
+      <td><button>deploy</button></td>
+    </tr>
+  </table>

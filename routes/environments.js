@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var HTTPStatus = require('http-status');
+var moment = require('moment');
 
 var mongoose = require('mongoose');
 var dbschema = require('../models/dbschema.js');
@@ -39,6 +40,12 @@ router.get('/', function(req, res, next) {
     }
     ], function (error, environments){
       if (error) return next(error);
+      for (var i = 0; i < environments.length; i++) {
+        var environment= environments[i].toObject();
+        environment.FromNow= moment(environments[i].updated_at).fromNow();
+        environments[i]=environment;
+      }
+
       res.json(environments);
     })
 });

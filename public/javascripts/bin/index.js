@@ -1577,11 +1577,14 @@ exports.applicationController = function($scope, $routeParams, $http, Applicatio
 };
 
 exports.deploymentController = function($scope, $routeParams, $http) {
-  var encoded = encodeURIComponent($routeParams.env);
+  var encoded = encodeURIComponent($routeParams.application);
   $http.
-    get('/deployments/?application=' + encoded).
+    get('/environments/?application=' + encoded).
     success(function(data) {
-      $scope.deployment = data;
+      $scope.environments = data;
+      $scope.application=$routeParams.application;
+        $scope.format = 'yyyy/MM/dd';
+  $scope.date = new Date();
     });
 
   setTimeout(function() {
@@ -1640,7 +1643,7 @@ var services = require('./services');
 
 var _ = require('underscore');
 
-var components = angular.module('release-master.components', ['ng']);
+var components = angular.module('release-master.components', ['ng','ui.bootstrap']);
 
 _.each(services, function(factory, name) {
   components.factory(name, factory);
@@ -1654,7 +1657,7 @@ _.each(directives, function(directive, name) {
   components.directive(name, directive);
 });
 
-var app = angular.module('release-master', ['release-master.components', 'ngRoute', 'ngResource']);
+var app = angular.module('release-master', ['release-master.components', 'ngRoute', 'ngResource','ui.bootstrap']);
 
 
 
@@ -1666,7 +1669,7 @@ app.config(function($routeProvider) {
     when('/builds/:application', {
       template: '<build></build>'
     }).
-    when('/deployment/:env', {
+    when('/deployment/:application', {
       template: '<deployment></deployment>'
     });
 });

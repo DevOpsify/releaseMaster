@@ -1,15 +1,11 @@
 <div class="alert alert-warning">{{message}}</div>
 
 <div class="application" ng-repeat="app in applications">
-    <h1><a class="env" ng-href="#/builds/{{app.name}}">{{app.name}}</a></h1>
+    <h2>{{app.name}}</h2>
     <div>{{app.description}}</div>
     <div>
-    <!-- hard coded for now, but should have list of env associated with application -->
-    <h3> Environments </h3>
-    <a class="env" ng-href="#/deployment/{{app.name}}">Development</a>
-    <a class="env" ng-href="#/deployment/{{app.name}}">QA</a>
-    <a class="env" ng-href="#/deployment/{{app.name}}">Staging</a>
-    <a class="env" ng-href="#/deployment/{{app.name}}">Production</a>
+    <h4><i class="fa fa-code fa-lg" aria-hidden="true"></i> <a class="env" ng-href="#/builds/{{app.name}}">Builds</a></h4>
+    <h4><i class="fa fa-server fa-lg" aria-hidden="true"></i> <a class="env" ng-href="#/deployment/{{app.name}}">Environments</a></h4>
 </div>
 </div>
 
