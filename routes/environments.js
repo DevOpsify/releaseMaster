@@ -49,6 +49,7 @@ router.get('/', function(req, res, next) {
                            var key = this.environment;
                            var value = {
                                          last_update: this.last_update,
+                                         status: this.status,
                                          build: this.build
                                        };
                            emit(key, value);
@@ -58,6 +59,7 @@ router.get('/', function(req, res, next) {
                      for (var idx = 0; idx < deployments.length; idx++) {
                       if ( reducedVal.last_update < deployments[idx].last_update ) {
                         reducedVal.last_update = deployments[idx].last_update;
+                        reducedVal.status = deployments[idx].status;
                         reducedVal.build = deployments[idx].build;
                       }
                      }
@@ -67,20 +69,21 @@ router.get('/', function(req, res, next) {
       Deployment.mapReduce(
           findLatestDeployment,
           function (err, model, stats) {
-          // console.log('map reduce took %d ms', stats.processtime)
           model.find().exec(function (err, latestDeployment) {
             callback(err, application, environments, latestDeployment);
           });
       })
     }
     ], function (error, application, environments, latestDeployment){
-      console.log(latestDeployment[0]);
-      console.log(latestDeployment);
       if (error) return next(error);
+      var envDeployment={};
+      for (var i = 0; i < latestDeployment.length; i++) {
+        envDeployment[latestDeployment[i]._id]=latestDeployment[i].value;
+      }
       for (var i = 0; i < environments.length; i++) {
         var environment= environments[i].toObject();
         environment.FromNow= moment(environments[i].updated_at).fromNow();
-        // environment.build= latestDeployment
+        environment.latestDeployment= envDeployment[environment._id];
         environments[i]=environment;
       }
 

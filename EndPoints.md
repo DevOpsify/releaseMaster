@@ -101,7 +101,7 @@ POST /deployments
 PUT /deployments/id/<id>
 
 {
-  "qaResult": "pass regression test"
+  "status": "pass regression test"
 }
 ```
 

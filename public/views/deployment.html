@@ -27,12 +27,15 @@
     <tr ng-repeat="environment in environments">
       <td>{{environment.name}}  <span class="glyphicon glyphicon-question-sign" title="{{environment.description}}"></span>
       </td>
-      <td>{{environment.gitBranch}}</td>
-      <td></td>
+      <td>{{environment.latestDeployment.status}}</td>
+      <td>{{environment.latestDeployment.build}}</td>
       <td>{{environment.FromNow}} <span class="glyphicon glyphicon-question-sign" title="{{environment.updated_at}}"></span></td>
       <td>
-<select ng-model="selectedName" ng-options="x for x in builds">
-</select>
+
+    <label for="buildSelect"> Select Build: </label>
+    <select name="buildSelect" id="buildSelect" ng-model="builds.model">
+      <option ng-repeat="option in builds.availableOptions" value="{{option.id}}">{{option.name}}</option>
+    </select>
 <button>deploy</button>
       </td>
     </tr>
