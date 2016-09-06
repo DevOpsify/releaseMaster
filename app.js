@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var schedule = require('node-schedule');
 
 var app = express();
 
@@ -20,6 +20,21 @@ mongoose.connect(mongoURI, function(err) {
   } else {
     console.log('connection successful');
   }
+});
+
+var dbschema = require('./models/dbschema.js');
+var Deployment = dbschema.Deployment;
+var MapReduceLatestDeployment = dbschema.MapReduceLatestDeployment;
+
+var j = schedule.scheduleJob('0 * * * * *', function(){
+  console.log('find latest deployment for each environment!');
+
+  Deployment.mapReduce(
+    MapReduceLatestDeployment,
+    function (err, model, stats) {
+      console.log('map reduce took %d ms', stats.processtime)
+    })
+
 });
 
 // view engine setup

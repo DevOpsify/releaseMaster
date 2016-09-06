@@ -10,6 +10,8 @@ var async = require('async')
 
 var Environment = dbschema.Environment;
 var Application = dbschema.Application;
+var Deployment = dbschema.Deployment;
+var LatestDeployment = dbschema.LatestDeployment;
 
 /* Gets all environments. */
 router.get('/', function(req, res, next) {
@@ -36,13 +38,27 @@ router.get('/', function(req, res, next) {
       var query = Environment.find({});
       query.where("application",application._id);
       query.sort({"created_at": -1})
-      query.exec(callback);
+      query.exec(function(err,environments){
+        callback(err, application, environments);
+      });
+    },
+    function (application, environments, callback){
+      LatestDeployment.find({}).exec(function (error, latestDeployment) {
+        if (error) return next(error);
+        // console.log(latestDeployment);
+        callback(error, application, environments, latestDeployment);
+      });
     }
-    ], function (error, environments){
+    ], function (error, application, environments, latestDeployment){
       if (error) return next(error);
+      var envDeployment={};
+      for (var i = 0; i < latestDeployment.length; i++) {
+        envDeployment[latestDeployment[i]._id]=latestDeployment[i].value;
+      }
       for (var i = 0; i < environments.length; i++) {
         var environment= environments[i].toObject();
         environment.FromNow= moment(environments[i].updated_at).fromNow();
+        environment.latestDeployment= envDeployment[environment._id];
         environments[i]=environment;
       }
 
@@ -82,6 +98,20 @@ router.post('/', function(req, res, next) {
           if (err) return next(err);
           res.json(newEnvironment);
       });
+  });
+});
+
+
+/* Gets environment info by its id */
+router.get('/id/:id', function(req, res, next) {
+  async.waterfall([
+    function (callback){
+      Deployment.findOne({'environment':req.params.id})
+      .sort({"last_update": -1})
+      .exec(callback);
+    }
+  ],function (error, deployment){
+    res.json(deployment);
   });
 });
 

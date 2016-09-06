@@ -43,7 +43,14 @@ exports.deploymentController = function($scope, $routeParams, $http, Environment
           $scope.envDesc = ''; // clear textbox
         });
     };
-    $scope.builds = ["Emil", "Tobias", "Linus"];
+    $scope.builds = {
+    model: 1,
+    availableOptions: [
+      {id: '1', name: 'Build A'},
+      {id: '2', name: 'Build B'},
+      {id: '3', name: 'Build C'}
+    ]
+   };
 
 
   $http.

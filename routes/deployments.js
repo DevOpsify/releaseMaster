@@ -91,7 +91,7 @@ router.get('/id/:id', function(req, res, next) {
 });
 
 
-/* Updates a deployment QA result by its id */
+/* Updates a deployment status by its id */
 router.put('/id/:id', function(req, res, next) {
     console.log (req.params.id);
     async.waterfall([
@@ -99,7 +99,7 @@ router.put('/id/:id', function(req, res, next) {
             Deployment.findById(req.params.id).exec(callback);
         },
         function (deployment,callback) {
-            deployment.qaResult=req.body.qaResult;
+            deployment.status=req.body.status;
             deployment.last_update=Date.now();
             deployment.save(callback);
         }
