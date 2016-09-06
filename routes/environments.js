@@ -10,6 +10,7 @@ var async = require('async')
 
 var Environment = dbschema.Environment;
 var Application = dbschema.Application;
+var Deployment = dbschema.Deployment;
 
 /* Gets all environments. */
 router.get('/', function(req, res, next) {
@@ -36,13 +37,50 @@ router.get('/', function(req, res, next) {
       var query = Environment.find({});
       query.where("application",application._id);
       query.sort({"created_at": -1})
-      query.exec(callback);
+      query.exec(function(err,environments){
+        callback(err, application, environments);
+      });
+    },
+    function (application, environments, callback){
+      // console.log(application);
+      // console.log(environments);
+      var findLatestDeployment={};
+      findLatestDeployment.map = function() {
+                           var key = this.environment;
+                           var value = {
+                                         last_update: this.last_update,
+                                         build: this.build
+                                       };
+                           emit(key, value);
+                    };
+      findLatestDeployment.reduce = function(keyEnv, deployments) {
+                     reducedVal = deployments[0];
+                     for (var idx = 0; idx < deployments.length; idx++) {
+                      if ( reducedVal.last_update < deployments[idx].last_update ) {
+                        reducedVal.last_update = deployments[idx].last_update;
+                        reducedVal.build = deployments[idx].build;
+                      }
+                     }
+                     return reducedVal;
+                  };
+      findLatestDeployment.out = {replace: "latestDeployment" };
+      Deployment.mapReduce(
+          findLatestDeployment,
+          function (err, model, stats) {
+          // console.log('map reduce took %d ms', stats.processtime)
+          model.find().exec(function (err, latestDeployment) {
+            callback(err, application, environments, latestDeployment);
+          });
+      })
     }
-    ], function (error, environments){
+    ], function (error, application, environments, latestDeployment){
+      console.log(latestDeployment[0]);
+      console.log(latestDeployment);
       if (error) return next(error);
       for (var i = 0; i < environments.length; i++) {
         var environment= environments[i].toObject();
         environment.FromNow= moment(environments[i].updated_at).fromNow();
+        // environment.build= latestDeployment
         environments[i]=environment;
       }
 
@@ -82,6 +120,20 @@ router.post('/', function(req, res, next) {
           if (err) return next(err);
           res.json(newEnvironment);
       });
+  });
+});
+
+
+/* Gets environment info by its id */
+router.get('/id/:id', function(req, res, next) {
+  async.waterfall([
+    function (callback){
+      Deployment.findOne({'environment':req.params.id})
+      .sort({"last_update": -1})
+      .exec(callback);
+    }
+  ],function (error, deployment){
+    res.json(deployment);
   });
 });
 
