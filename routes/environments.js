@@ -11,6 +11,7 @@ var async = require('async')
 var Environment = dbschema.Environment;
 var Application = dbschema.Application;
 var Deployment = dbschema.Deployment;
+var LatestDeployment = dbschema.LatestDeployment;
 
 /* Gets all environments. */
 router.get('/', function(req, res, next) {
@@ -42,37 +43,11 @@ router.get('/', function(req, res, next) {
       });
     },
     function (application, environments, callback){
-      // console.log(application);
-      // console.log(environments);
-      var findLatestDeployment={};
-      findLatestDeployment.map = function() {
-                           var key = this.environment;
-                           var value = {
-                                         last_update: this.last_update,
-                                         status: this.status,
-                                         build: this.build
-                                       };
-                           emit(key, value);
-                    };
-      findLatestDeployment.reduce = function(keyEnv, deployments) {
-                     reducedVal = deployments[0];
-                     for (var idx = 0; idx < deployments.length; idx++) {
-                      if ( reducedVal.last_update < deployments[idx].last_update ) {
-                        reducedVal.last_update = deployments[idx].last_update;
-                        reducedVal.status = deployments[idx].status;
-                        reducedVal.build = deployments[idx].build;
-                      }
-                     }
-                     return reducedVal;
-                  };
-      findLatestDeployment.out = {replace: "latestDeployment" };
-      Deployment.mapReduce(
-          findLatestDeployment,
-          function (err, model, stats) {
-          model.find().exec(function (err, latestDeployment) {
-            callback(err, application, environments, latestDeployment);
-          });
-      })
+      LatestDeployment.find({}).exec(function (error, latestDeployment) {
+        if (error) return next(error);
+        // console.log(latestDeployment);
+        callback(error, application, environments, latestDeployment);
+      });
     }
     ], function (error, application, environments, latestDeployment){
       if (error) return next(error);
