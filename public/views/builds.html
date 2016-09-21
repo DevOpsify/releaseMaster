@@ -30,8 +30,8 @@
         Action
       </th>
     </tr>
-    <tr ng-repeat="build in builds  |filter:search">
-      <td><kbd>{{build._id}}</kbd> - {{build.buildID}}</td>
+    <tr ng-repeat="build in builds  |filter:search" ng-class="{success: build._id==highlight}">
+      <td ><kbd>{{build._id}}</kbd> - {{build.buildID}}</td>
       <td><a class="type-hint label">{{build.gitBranch}}</a></td>
       <td><small>{{build.gitSHA}}</small></td>
       <td>{{build.FromNow}} <span class="glyphicon glyphicon-question-sign" title="{{build.created_at}}"></span></td>

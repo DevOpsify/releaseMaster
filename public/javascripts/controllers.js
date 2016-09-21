@@ -70,6 +70,8 @@ exports.buildController = function($scope, $routeParams, $http) {
   var page = parseInt('0'+encodeURIComponent($routeParams.page));
   if (page <=0)
     page=1;
+  var highlight = parseInt(encodeURIComponent($routeParams.build));
+  $scope.highlight=highlight;
   $scope.sortBy = function(propertyName) {
     $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
     $scope.propertyName = propertyName;
