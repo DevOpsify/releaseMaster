@@ -32,3 +32,8 @@ a {
   /* display:inline-block; */
   background: gray;
 }
+
+.type-warning {
+  /* display:inline-block; */
+  background: orange;
+}
