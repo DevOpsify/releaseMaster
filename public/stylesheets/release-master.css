@@ -27,3 +27,13 @@ a {
 .sortorder.reverse:after {
   content: '\25bc';   // BLACK DOWN-POINTING TRIANGLE
 }
+
+.type-hint {
+  /* display:inline-block; */
+  background: gray;
+}
+
+.type-warning {
+  /* display:inline-block; */
+  background: orange;
+}

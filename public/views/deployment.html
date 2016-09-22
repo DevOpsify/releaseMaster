@@ -28,7 +28,7 @@
       <td>{{environment.name}}  <span class="glyphicon glyphicon-question-sign" title="{{environment.description}}"></span>
       </td>
       <td>{{environment.latestDeployment.status}}</td>
-      <td>{{environment.latestDeployment.build}}</td>
+      <td><a href="#/builds/{{application}}?build={{environment.latestDeployment.build}}">{{environment.latestDeployment.build}}</a></td>
       <td>{{environment.FromNow}} <span class="glyphicon glyphicon-question-sign" title="{{environment.updated_at}}"></span></td>
       <td>
 

@@ -70,10 +70,7 @@ exports.buildController = function($scope, $routeParams, $http) {
   var page = parseInt('0'+encodeURIComponent($routeParams.page));
   if (page <=0)
     page=1;
-  $scope.sortBy = function(propertyName) {
-    $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
-    $scope.propertyName = propertyName;
-  };
+  $scope.highlight = parseInt(encodeURIComponent($routeParams.build));
 
   $http.
     get('/builds/count/?application=' + application ).

@@ -50,6 +50,7 @@ module.exports.Environment = connection.model('Environment', EnvironmentSchema);
 
 
 var LatestDeploymentSchema = new Schema({
+  // _id == environment._id
   value : {
     last_update: Date ,
     status:  String ,
