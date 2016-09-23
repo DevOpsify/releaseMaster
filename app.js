@@ -22,20 +22,20 @@ mongoose.connect(mongoURI, function(err) {
   }
 });
 
-var dbschema = require('./models/dbschema.js');
-var Deployment = dbschema.Deployment;
-var MapReduceLatestDeployment = dbschema.MapReduceLatestDeployment;
+// var dbschema = require('./models/dbschema.js');
+// var Deployment = dbschema.Deployment;
+// var MapReduceLatestDeployment = dbschema.MapReduceLatestDeployment;
 
-var j = schedule.scheduleJob('0 * * * * *', function(){
-  console.log('find latest deployment for each environment!');
+// var j = schedule.scheduleJob('0 * * * * *', function(){
+//   console.log('find latest deployment for each environment!');
 
-  Deployment.mapReduce(
-    MapReduceLatestDeployment,
-    function (err, model, stats) {
-      console.log('map reduce took %d ms', stats.processtime)
-    })
+//   Deployment.mapReduce(
+//     MapReduceLatestDeployment,
+//     function (err, model, stats) {
+//       console.log('map reduce took %d ms', stats.processtime)
+//     })
 
-});
+// });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

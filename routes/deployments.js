@@ -10,6 +10,8 @@ var Deployment = dbschema.Deployment;
 var Application = dbschema.Application;
 var Build = dbschema.Build;
 var Environment = dbschema.Environment;
+var MapReduceLatestDeployment = dbschema.MapReduceLatestDeployment;
+var request = require('request');
 
 /* Gets all deployments. */
 router.get('/', function(req, res, next) {
@@ -43,6 +45,15 @@ router.get('/', function(req, res, next) {
 /* Creats a deployment */
 router.post('/', function(req, res, next) {
     //TODO Need validation agaist build and env model for id check
+    request(
+      {method:'GET'
+      , uri:'http://admin:password@pasjenkins0.economicalinsurance.com:8080/job/test/build?token=secret'
+      , gzip:true
+    },function(error,response,body){
+      console.log(error);
+      console.log(response);
+    });
+
     var deployment = new Deployment(req.body);
 
     if (null == deployment.build  ){
@@ -57,7 +68,8 @@ router.post('/', function(req, res, next) {
             Build.findById(deployment.build).exec(callback)
         },
         function (build, callback){
-            Environment.findOne({ 'name': req.body.environment }).exec(function(err,environment){
+
+            Environment.findOne({ '_id': deployment.environment }).exec(function(err,environment){
                 if (err) return next(error);
 
                 deployment.application= build.application;
@@ -67,6 +79,12 @@ router.post('/', function(req, res, next) {
         }
     ], function (error, deployment){
         if (error) return next(error);
+        Deployment.mapReduce(
+          MapReduceLatestDeployment,
+          function (err, model, stats) {
+            console.log('map reduce took %d ms', stats.processtime)
+        })
+
         res.json(deployment);
     });
 });

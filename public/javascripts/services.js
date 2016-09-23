@@ -11,3 +11,10 @@ exports.Environments = function($resource) {
         'update': { method:'PUT' }
     });
 };
+
+exports.Deployments = function($resource) {
+
+    return $resource('/deployments/:id', null, {
+        'update': { method:'PUT' }
+    });
+};
