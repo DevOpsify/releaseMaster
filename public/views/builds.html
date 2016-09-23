@@ -30,10 +30,10 @@
     </tr>
     <tr ng-repeat="build in builds  |filter:search" ng-class="{success: build._id==highlight}">
       <td ><kbd>{{build._id}}</kbd> - {{build.buildID}}</td>
-      <td><a class="bg-primary label ">{{build.gitBranch}}</a></td>
+      <td><a class="bg-primary label">{{build.gitBranch}}</a></td>
       <td><small>{{build.gitSHA}}</small></td>
       <td><a class="bg-primary label">{{build.FromNow}}</a> <small>{{build.created_at | date:'MM/dd/yyyy @ h:mma'}}</small></td>
-      <td><button>deploy to</button></td>
+      <td><a href="#/deploy/{{application}}/{{build._id}}">deploy to</a></td>
     </tr>
   </table>
 

@@ -5,19 +5,19 @@
 </ul>
 
 
-  <table class="table table-bordered">
+  <table class="table table-bordered table-hover table-condensed table-striped">
     <tr>
       <th>
         Env Name
       </th>
       <th>
-        <button ng-click="sortBy('gitBranch')">Status</button>
+        Status
       </th>
       <th>
         Builds
       </th>
       <th>
-        <button ng-click="sortBy('created_at')">Last Deployment</button>
+        Last Deployment
       </th>
       <th>
         Action
@@ -29,14 +29,10 @@
       </td>
       <td>{{environment.latestDeployment.status}}</td>
       <td><a href="#/builds/{{application}}?build={{environment.latestDeployment.build}}">{{environment.latestDeployment.build}}</a></td>
-      <td>{{environment.FromNow}} <span class="glyphicon glyphicon-question-sign" title="{{environment.updated_at}}"></span></td>
+      <td>{{environment.latestDeployment.last_update| date:'MM/dd/yyyy @ h:mma'}}</td>
       <td>
 
-    <label for="buildSelect"> Select Build: </label>
-    <select name="buildSelect" id="buildSelect" ng-model="builds.model">
-      <option ng-repeat="option in builds.availableOptions" value="{{option.id}}">{{option.name}}</option>
-    </select>
-<button>deploy</button>
+<button>>></button>
       </td>
     </tr>
   </table>

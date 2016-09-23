@@ -37,3 +37,5 @@ a {
   /* display:inline-block; */
   background: orange;
 }
+
+.panel-body { height:100px; position:relative; }
