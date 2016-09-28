@@ -1,6 +1,4 @@
-var app = angular.module('release-master', ['ng', 'ngRoute', 'ngResource','ui.bootstrap']);
-
-app.config(function($routeProvider) {
+angular.module('release-master', ['ng', 'ngRoute', 'ngResource','ui.bootstrap']).config(function($routeProvider) {
   $routeProvider.
     when('/', {
       template: '<application></application>'
