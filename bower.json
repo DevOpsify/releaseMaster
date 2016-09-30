@@ -28,7 +28,8 @@
         "angular-bootstrap": "~0.11.0",
         "angular-ui-router": "~0.2.10",
         "bootstrap": "~3.2.0",
-        "font-awesome": "~4.6.0"
+        "font-awesome": "~4.6.0",
+        "angular-utils-pagination": "0.11.1"
     },
     "repository": {
         "type": "git",

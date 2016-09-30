@@ -1,61 +1,41 @@
 <h3>{{application}}</h3>
+
 <ul class="nav nav-tabs">
   <li class="active"><a href="#/builds/{{application}}">Builds</a></li>
   <li><a href="#/deployment/{{application}}">Deployments</a></li>
 </ul>
 
-  <table class="table table-bordered table-hover table-condensed table-striped">
-    <tr>
-      <th>
-        Build #
-      </th>
-      <th class="col-md-3">
+<table class="table table-bordered table-hover table-condensed table-striped">
+  <tr>
+    <th>
+      Build #
+    </th>
+    <th class="col-md-3">
       <div class="form-inline">
         Branch
         <input type="text" class="form-control input-sm" id="filterBranch" placeholder="filter" ng-model="search.gitBranch">
-        </div>
-      </th>
-      <th>
+      </div>
+    </th>
+    <th>
       <div class="form-inline">
         GitSHA
         <input type="text" class="form-control input-sm" id="filterGit" placeholder="filter" ng-model="search.gitSHA">
-        </div>
-      </th>
-      <th>
-        Age
-      </th>
-      <th>
-        Action
-      </th>
-    </tr>
-    <tr ng-repeat="build in builds  |filter:search" ng-class="{success: build._id==highlight}">
-      <td ><kbd>{{build._id}}</kbd> - {{build.buildID}}</td>
-      <td><a class="bg-primary label">{{build.gitBranch}}</a></td>
-      <td><small>{{build.gitSHA}}</small></td>
-      <td><a class="bg-primary label">{{build.FromNow}}</a> <small>{{build.created_at | date:'MM/dd/yyyy @ h:mma'}}</small></td>
-      <td><a href="#/deploy/{{application}}/{{build._id}}">deploy to</a></td>
-    </tr>
-  </table>
+      </div>
+    </th>
+    <th>
+      Age
+    </th>
+    <th>
+      Action
+    </th>
+  </tr>
+  <tr dir-paginate="build in builds  | filter:search | itemsPerPage: 5" ng-class="{success: build._id==highlight}">
+    <td><kbd>{{build._id}}</kbd> - {{build.buildID}}</td>
+    <td><a class="bg-primary label">{{build.gitBranch}}</a></td>
+    <td><small>{{build.gitSHA}}</small></td>
+    <td><a class="bg-primary label">{{build.FromNow}}</a> <small>{{build.created_at | date:'MM/dd/yyyy @ h:mma'}}</small></td>
+    <td><a href="#/deploy/{{application}}/{{build._id}}">deploy to</a></td>
+  </tr>
+</table>
 
-<nav aria-label="Page navigation">
-  <ul class="pagination">
-    <li class="page-item" ng-hide="currentpage<=1">
-      <a class="page-link" href="#/builds/{{application}}/{{currentpage - 1}}" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-        <span class="sr-only">Previous</span>
-      </a>
-    </li>
-    <li class="page-item" ng-hide="currentpage<=1">
-    <a class="page-link" href="#/builds/{{application}}/{{currentpage - 1}}">{{currentpage - 1}}</a></li>
-    <li class="page-item active">
-    <a class="page-link" href="#/builds/{{application}}/{{currentpage}}">{{currentpage}}</a></li>
-    <li class="page-item" ng-hide="currentpage>=pagecount">
-    <a class="page-link" href="#/builds/{{application}}/{{currentpage + 1}}">{{currentpage + 1}}</a></li>
-    <li class="page-item" ng-hide="currentpage>=pagecount">
-      <a class="page-link" href="#/builds/{{application}}/{{currentpage + 1}}" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-        <span class="sr-only">Next</span>
-      </a>
-    </li>
-  </ul>
-</nav>
+<dir-pagination-controls></dir-pagination-controls>

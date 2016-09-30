@@ -22,11 +22,11 @@ GET /builds?application=APP&branch=master&latest # return latest builds for APP 
 GET /builds?application=APP&latest&part=[docker|git|branch|timestamp] # return latest build info for APP
 GET /builds?application=APP&branch=master&latest&part=[docker|git|branch|timestamp] # return latest build info for APP and branch master
 
-GET /builds?application=APP&page=1 # return builds for APP
+GET /builds?application=APP # return builds for APP
 
 */
 
-var pagesize = 50;
+var pagesize = 1000;
 
 /* GET/builds/count?application=APP
 */
@@ -92,9 +92,6 @@ router.route('/')
           query.where("gitBranch", req.query.branch);
         }
         query.sort({ "created_at": -1 })
-        var page = parseInt(req.query.page) - 1;
-        if (page > 0)
-          query.skip(page * pagesize)
         query.limit(pagesize);
         query.exec(callback);
       }
