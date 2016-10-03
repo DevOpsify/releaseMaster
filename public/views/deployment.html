@@ -37,18 +37,23 @@
     </tr>
   </table>
 
+<div>
+    <button type="button" class="btn btn-info" ng-click="showme=true" ng-hide="showme">
+          <span class="glyphicon glyphicon-plus-sign"></span> Add Environment
+    </button>
+</div>
 
-<div class="panel panel-default col-md-3">
+<div class="panel panel-default col-md-3" ng-show="showme">
 <form >
-    <label class="control-label">Environment:</label>
+    <h4>Environment:</h4>
     <div class="col-sm-10">
-      <input type="text" class="form-control" ng-model="envName" placeholder="Environment Name">
+      <input type="text" class="form-control" ng-model="envName" placeholder="Environment Name"><br>
     </div>
     <div class="col-sm-10">
-      <input type="text" class="form-control" ng-model="envDesc" placeholder="Environment Description">
+      <input type="text" class="form-control" ng-model="envDesc" placeholder="Environment Description"><br>
     </div>
     <div class="col-sm-10">
-      <button type="submit" class="btn btn-primary" ng-click="addEnvironment()">Add</button>
+      <button type="submit" class="btn btn-primary" ng-click="addEnvironment()">Add</button>&nbsp;<button class="btn btn-primary " ng-click="showme=false">Cancel</button>
     </div>
 </form>
 </div>

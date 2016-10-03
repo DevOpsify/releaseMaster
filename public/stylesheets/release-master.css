@@ -9,11 +9,24 @@ a {
 
 .application {
   float: left;
-  width: 47%;
-  height: 200px;
+  border-radius: 25px;
+  border: 2px solid #00B7FF;
+  width: 23%;
+  height: 170px;
   margin: 1em;
   padding: 1%;
-  background: #fcf9ce;
+  background: #FFFFFF;
+}
+
+.add {
+  float: left;
+  border-radius: 25px;
+  border: 2px solid #FFFFFF;
+  width: 23%;
+  height: 170px;
+  margin: 1em;
+  padding: 1%;
+  background: #00B7FF;
 }
 
 .env {

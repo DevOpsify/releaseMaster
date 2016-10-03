@@ -15,6 +15,7 @@ angular.module('release-master').controller('DeploymentController', function($sc
           $scope.envName = ''; // clear textbox
           $scope.envDesc = ''; // clear textbox
         });
+        $scope.showme = false;
     };
 
   $http.
