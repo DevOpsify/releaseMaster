@@ -1,4 +1,4 @@
-angular.module('release-master', ['ng', 'ngRoute', 'ngResource','ui.bootstrap']).config(function($routeProvider) {
+angular.module('release-master', ['ng', 'ngRoute', 'ngResource','ui.bootstrap','angularUtils.directives.dirPagination']).config(function($routeProvider) {
   $routeProvider.
     when('/', {
       template: '<application></application>'
