@@ -1,7 +1,7 @@
 angular.module('release-master').controller('BuildController', function($scope, $routeParams, $http) {
   var application = encodeURIComponent($routeParams.application);
   $scope.highlight = parseInt(encodeURIComponent($routeParams.build));
-
+ 
   $http.
     get('/builds/count/?application=' + application ).
     success(function(count) {
