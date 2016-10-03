@@ -24,14 +24,15 @@
     </th>
     <th>
       <div class="form-inline">
-      Age
+      Build Time <span ng-click="sortReverse = true" class="fa fa-caret-up"></span>
+            <span ng-click="sortReverse = false" class="fa fa-caret-down"></span>
       </div>
     </th>
     <th>
       Action
     </th>
   </tr>
-  <tr dir-paginate="build in builds  | filter:search | filter: ageFilter(age) | itemsPerPage: 5" ng-class="{success: build._id==highlight}">
+  <tr dir-paginate="build in builds  | filter:search | orderBy:'created_at':sortReverse | itemsPerPage: 5" ng-class="{success: build._id==highlight}">
     <td><kbd>{{build._id}}</kbd> - {{build.buildID}}</td>
     <td><a class="bg-primary label">{{build.gitBranch}}</a></td>
     <td><small>{{build.gitSHA}}</small></td>

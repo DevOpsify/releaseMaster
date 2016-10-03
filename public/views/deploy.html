@@ -19,7 +19,7 @@
 
 
   </div>
-</div>
+</div><br>
 
 
 <div class="col-md-6">
@@ -32,12 +32,12 @@ Build Info: <span class="bg-primary label">#{{build._id}}</span>
 <dt>Docker Digest:</dt><dd>{{build.dockerDigest}}</dd>
 <dt>Build at:</dt><dd>{{build.created_at| date:'MM/dd/yyyy @ h:mma'}}</dd>
 </dl>
-Environment:
+Environments:
 <div ng-repeat="environment in environments"> 
 <label>
 <input type="radio" ng-model="targetEnv.id" value="{{environment._id}}"> {{environment.description}}
 </label>
-</div>
+</div><br>
 <button  class="btn btn-primary" ng-click="addDeploy()">Deploy</button>
 <a href="#/builds/{{application}}" class="btn btn-default">Cancel</a>
 

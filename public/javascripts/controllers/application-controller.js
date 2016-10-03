@@ -7,12 +7,12 @@ angular.module('release-master').controller('ApplicationController', function($s
           $scope.message= "application added";
           $scope.appName = ''; // clear textbox
           $scope.appDescription = ''; // clear textbox
-
         }, function(error){
           $scope.message= "application already exist!";
           $scope.appName = ''; // clear textbox
           $scope.appDescription = ''; // clear textbox
         });
+        $scope.showme = false;
     };
 
     $scope.applications = Applications.query(function(){
