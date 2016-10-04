@@ -2,6 +2,7 @@ angular.module('release-master').controller('BuildController', function ($scope,
   var application = encodeURIComponent($routeParams.application);
   $scope.highlight = parseInt(encodeURIComponent($routeParams.build));
   $scope.sortReverse  = true;
+  $scope.application = $routeParams.application;
   $http.
     get('/builds/count/?application=' + application).
     success(function (count) {
@@ -9,10 +10,8 @@ angular.module('release-master').controller('BuildController', function ($scope,
       $http.get('/builds/?application=' + application).
         success(function (data) {
           $scope.builds = data;
-          $scope.application = $routeParams.application;
           $scope.propertyName = 'created_at';
           $scope.reverse = true;
-
         });
     });
 
