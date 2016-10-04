@@ -26,7 +26,7 @@ GET /builds?application=APP # return builds for APP
 
 */
 
-var pagesize = 1000;
+var pagesize = 500;
 
 /* GET/builds/count?application=APP
 */
