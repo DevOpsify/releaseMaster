@@ -1,0 +1,5 @@
+{
+	"undefined": "localhost/releasemaster",
+	"dev": "localhost/Dev_DB_NAME",
+	"prod": "localhost/PROD_DB_NAME"
+}

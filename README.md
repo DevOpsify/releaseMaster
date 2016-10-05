@@ -72,3 +72,9 @@ $ nodemon bin/www
 
 2. Start gulp
 `gulp watch`
+
+### Seeding the database 
+seed the database
+ ` npm run seed `
+
+All the seeds file are under seeds dir named after the collection name
