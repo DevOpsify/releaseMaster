@@ -35,7 +35,7 @@
     </tr>
 
     <tr dir-paginate-start="build in builds  | filter:search | orderBy:'created_at':sortReverse | itemsPerPage: 50" ng-class="{success: build._id==highlight}" ng-click="showme = !showme">
-      <td><kbd>{{build._id}}</kbd> - {{build.buildID}}</td>
+      <td><kbd>{{build._id}}</kbd> - {{build.buildID}} <span class="glyphicon glyphicon-info-sign"></span></td>
       <td><a class="bg-primary label">{{build.gitBranch}}</a></td>
       <td><small>{{build.gitSHA}}</small></td>
       <td><a class="bg-primary label">{{build.FromNow}}</a> <small>{{build.created_at | date:'MM/dd/yyyy @ h:mma'}}</small></td>
