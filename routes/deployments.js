@@ -130,10 +130,11 @@ router.route('/id/:id')
     .delete(function (req, res, next) {
         async.waterfall([
             function (callback) {
-                Deployment.findByIdAndRemove(req.params.id, null, callback)
+                Deployment.findById(req.params.id, callback); 
             }
         ], function (error, deployment) {
             if (error) return next(err);
+            deployment.remove();
             res.json(deployment);
         })
     });

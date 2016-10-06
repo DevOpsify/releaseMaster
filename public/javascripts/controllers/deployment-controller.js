@@ -18,6 +18,18 @@ angular.module('release-master').controller('DeploymentController', function($sc
         $scope.showme = false;
     };
 
+  $scope.deleteEnvironment = function (index) {
+        if (confirm("are you sure to delete ?")) {
+            var toremove = $scope.environments[index];
+            Environments.remove({ id: toremove._id }, function () {
+                $scope.environments.splice(index, 1);
+                $scope.message = "environment removed";
+            }, function (error) {
+                $scope.message = "unable to remove environment! ";
+            });
+        }
+    };
+
   $http.
     get('/environments/?application=' + encoded).
     success(function(environments) {

@@ -88,10 +88,14 @@ router.route('/id/:id')
     .delete(function (req, res, next) {
         async.waterfall([
             function (callback) {
-                Application.findByIdAndRemove(req.params.id, callback);
+                //Application.findByIdAndRemove(req.params.id, callback);
+                console.log("current request id is" + req.params.id);
+                Application.findById(req.params.id, callback);
             }
         ], function (err, application) {
             if (err) return next(err);
+            console.log("current application in route delete is" + application)
+            application.remove();
             res.json(application);
         });
     });

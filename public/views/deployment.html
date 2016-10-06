@@ -31,8 +31,8 @@
       <td><a href="#/builds/{{application}}?build={{environment.latestDeployment.build}}">{{environment.latestDeployment.build}}</a></td>
       <td>{{environment.latestDeployment.last_update| date:'MM/dd/yyyy @ h:mma'}}</td>
       <td>
-
-<button>>></button>
+    <button type="button" class="btn btn-danger btn-xs" ng-click="deleteEnvironment($index)">
+          <span class="glyphicon glyphicon-remove-sign"></span> Remove
       </td>
     </tr>
   </table>

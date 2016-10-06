@@ -42,12 +42,27 @@ var DeploymentSchema = new Schema({
 });
 DeploymentSchema.plugin(autoIncrement.plugin, 'Deployment');
 
-module.exports.Application = connection.model('Application', ApplicationSchema);
-module.exports.Build = connection.model('Build', BuildSchema);
-module.exports.Deployment = connection.model('Deployment', DeploymentSchema);
-module.exports.Environment = connection.model('Environment', EnvironmentSchema);
+var applicationInstance = connection.model('Application', ApplicationSchema);
+var buildInstance = connection.model('Build', BuildSchema);
+var deploymentInstance = connection.model('Deployment', DeploymentSchema);
+var environmentInstance = connection.model('Environment', EnvironmentSchema);
 
+module.exports.Application = applicationInstance;
+module.exports.Build = buildInstance;
+module.exports.Deployment = deploymentInstance;
+module.exports.Environment = environmentInstance;
 
+ApplicationSchema.pre('remove', function(next) {
+    buildInstance.remove({application: this._id}).exec();
+    environmentInstance.remove({application: this._id}).exec();
+    deploymentInstance.remove({application: this._id}).exec();
+    next();
+});
+
+EnvironmentSchema.pre('remove', function(next) {
+    deploymentInstance.remove({deployment: this._id}).exec();
+    next();
+});
 
 var LatestDeploymentSchema = new Schema({
   // _id == environment._id
