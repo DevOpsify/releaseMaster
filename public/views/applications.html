@@ -1,7 +1,9 @@
 <div class="alert alert-warning" ng-show="message">{{message}}</div>
 
 <div class="application" ng-repeat="app in applications">
-    <h4>{{app.name}}</h4>
+    <h2>{{app.name}}   <button type="button" class="btn btn-danger btn-xs" ng-click="deleteApplication($index)">
+          <span class="glyphicon glyphicon-remove-sign"></span> Remove
+    </button></h2>
     <div>{{app.description}}</div>
     <div>
         <h4><i class="fa fa-code fa-lg" aria-hidden="true"></i> <a class="env" ng-href="#/builds/{{app.name}}">Builds</a></h4>

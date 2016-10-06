@@ -6,39 +6,60 @@
 </ul>
 
 <table class="table table-bordered table-hover table-condensed table-striped">
-  <tr>
-    <th>
-      Build #
-    </th>
-    <th class="col-md-3">
-      <div class="form-inline">
-        Branch
-        <input type="text" class="form-control input-sm" id="filterBranch" placeholder="filter" ng-model="search.gitBranch">
-      </div>
-    </th>
-    <th>
-      <div class="form-inline">
-        GitSHA
-        <input type="text" class="form-control input-sm" id="filterGit" placeholder="filter" ng-model="search.gitSHA">
-      </div>
-    </th>
-    <th>
-      <div class="form-inline">
-      Build Time <span ng-click="sortReverse = true" class="fa fa-caret-up"></span>
-            <span ng-click="sortReverse = false" class="fa fa-caret-down"></span>
-      </div>
-    </th>
-    <th>
-      Action
-    </th>
-  </tr>
-  <tr dir-paginate="build in builds  | filter:search | orderBy:'created_at':sortReverse | itemsPerPage: 50" ng-class="{success: build._id==highlight}">
-    <td><kbd>{{build._id}}</kbd> - {{build.buildID}}</td>
-    <td><a class="bg-primary label">{{build.gitBranch}}</a></td>
-    <td><small>{{build.gitSHA}}</small></td>
-    <td><a class="bg-primary label">{{build.FromNow}}</a> <small>{{build.created_at | date:'MM/dd/yyyy @ h:mma'}}</small></td>
-    <td><a href="#/deploy/{{application}}/{{build._id}}">deploy to</a></td>
-  </tr>
+  <tbody>
+    <tr>
+      <th>
+        Build #
+      </th>
+      <th class="col-md-3">
+        <div class="form-inline">
+          Branch
+          <input type="text" class="form-control input-sm" id="filterBranch" placeholder="filter" ng-model="search.gitBranch">
+        </div>
+      </th>
+      <th>
+        <div class="form-inline">
+          GitSHA
+          <input type="text" class="form-control input-sm" id="filterGit" placeholder="filter" ng-model="search.gitSHA">
+        </div>
+      </th>
+      <th>
+        <div class="form-inline">
+          Build Time <span ng-click="sortReverse = true" class="fa fa-caret-up"></span>
+          <span ng-click="sortReverse = false" class="fa fa-caret-down"></span>
+        </div>
+      </th>
+      <th>
+        Action
+      </th>
+    </tr>
+
+    <tr dir-paginate-start="build in builds  | filter:search | orderBy:'created_at':sortReverse | itemsPerPage: 50" ng-class="{success: build._id==highlight}" ng-click="showme = !showme">
+      <td><kbd>{{build._id}}</kbd> - {{build.buildID}} <span class="glyphicon glyphicon-info-sign"></span></td>
+      <td><a class="bg-primary label">{{build.gitBranch}}</a></td>
+      <td><small>{{build.gitSHA}}</small></td>
+      <td><a class="bg-primary label">{{build.FromNow}}</a> <small>{{build.created_at | date:'MM/dd/yyyy @ h:mma'}}</small></td>
+      <td><a href="#/deploy/{{application}}/{{build._id}}">deploy to</a></td>
+      <tr dir-paginate-end=""  ng-show="showme">
+        <td colspan="5">
+          Build Info: <span class="bg-primary label">#{{build._id}}</span>
+          <dl>
+            <dt>Repo:</dt>
+            <dd>{{build.gitRepo}}</dd>
+            <dt>Branch:</dt>
+            <dd>{{build.gitBranch}}</dd>
+            <dt>git SHA:</dt>
+            <dd>{{build.gitSHA}}</dd>
+            <dt>Docker Digest:</dt>
+            <dd>{{build.dockerDigest}}</dd>
+            <dt>Build at:</dt>
+            <dd>{{build.created_at| date:'MM/dd/yyyy @ h:mma'}}</dd>
+          </dl>
+        </td>
+      </tr>
+    </tr>
+
+  </tbody>
 </table>
 
 <dir-pagination-controls></dir-pagination-controls>
