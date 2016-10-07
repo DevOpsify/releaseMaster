@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('release-master').controller('BuildController', function ($scope, $routeParams, $http) {
   var application = encodeURIComponent($routeParams.application);
   $scope.highlight = parseInt(encodeURIComponent($routeParams.build));

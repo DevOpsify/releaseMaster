@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('release-master', ['ng', 'ngRoute', 'ngResource','ui.bootstrap','angularUtils.directives.dirPagination']).config(function($routeProvider) {
   $routeProvider.
     when('/', {

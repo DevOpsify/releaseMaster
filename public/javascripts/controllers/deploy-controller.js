@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('release-master').controller('DeployController', function($scope, $routeParams, $http, $location, $timeout, Deployments) {
   console.log("test");
   var application=encodeURIComponent($routeParams.application);

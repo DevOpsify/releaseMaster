@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('release-master').controller('ApplicationController', function ($scope, $routeParams, $http, Applications) {
     $scope.addApplication = function () {
         if (!$scope.appName || $scope.appName.length < 1) return;
