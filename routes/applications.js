@@ -24,6 +24,7 @@ router.route('/')
             res.json(applications);
         });
     })
+
 /* Creates a new application */
     .post(function (req, res, next) {
         async.waterfall([
@@ -42,8 +43,8 @@ router.route('/')
         });
     });
 
-/* Gets application by name*/
 router.route('/name/:name')
+/* Gets application by name*/
     .get(function (req, res, next) {
         async.waterfall([
             function (callback) {
@@ -57,13 +58,22 @@ router.route('/name/:name')
                 res.status(HTTPStatus.NOT_FOUND).json({ "reason": "Applicaion name not found" });
             }
         });
+    })
+/* Delete application by name*/
+    .delete(function (req, res, next) {
+        async.waterfall([
+            function (callback) {
+                console.log("current request id is" + req.params.name);
+                 Application.findOne({ 'name': req.params.name }, callback);
+            }
+        ], function (err, application) {
+            if (err) return next(err);
+            console.log("current application in route delete is" + application)
+            application.remove();
+            res.json(application);
+        });
     });
-
 /* Gets the application by id*/
-/* Updates the application by id */
-// Todo: check duplicate before update the application name?
-/* Deletes the application by id */
-// Todo: delete all buils and deployments for the application
 router.route('/id/:id')
     .get(function (req, res, next) {
         async.waterfall([
@@ -76,6 +86,8 @@ router.route('/id/:id')
             res.status(HTTPStatus.NOT_FOUND).end();
         });
     })
+/* Updates the application by id */
+// Todo: check duplicate before update the application name?
     .put(function (req, res, next) {
         async.waterfall([
             function (callback) {
@@ -87,10 +99,11 @@ router.route('/id/:id')
             res.json(application);
         });
     })
+/* Deletes the application by id */
+// Todo: delete all buils and deployments for the application
     .delete(function (req, res, next) {
         async.waterfall([
             function (callback) {
-                //Application.findByIdAndRemove(req.params.id, callback);
                 console.log("current request id is" + req.params.id);
                 Application.findById(req.params.id, callback);
             }

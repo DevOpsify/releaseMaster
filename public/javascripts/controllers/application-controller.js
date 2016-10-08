@@ -22,7 +22,7 @@ angular.module('release-master').controller('ApplicationController', function ($
             var toremove = $scope.applications[index];
             console.log("current delete index is" + index);
             console.log(toremove);
-            Applications.remove({ id: toremove._id }, function () {
+            Applications.remove({ name: toremove.name }, function () {
                 $scope.applications.splice(index, 1);
                 $scope.message = "application removed";
             }, function (error) {
