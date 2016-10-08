@@ -13,7 +13,6 @@ var Application = dbschema.Application;
 var Build = dbschema.Build;
 
 /* Gets all applications. */
-/* Creates a new application */
 router.route('/')
     .get(function (req, res, next) {
         async.waterfall([
@@ -25,6 +24,7 @@ router.route('/')
             res.json(applications);
         });
     })
+/* Creates a new application */
     .post(function (req, res, next) {
         async.waterfall([
             function (callback) {

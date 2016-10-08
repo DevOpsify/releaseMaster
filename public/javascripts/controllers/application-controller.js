@@ -5,7 +5,7 @@ angular.module('release-master').controller('ApplicationController', function ($
         if (!$scope.appName || $scope.appName.length < 1) return;
         var application = new Applications({ name: $scope.appName, description: $scope.appDescription });
         Applications.save(application, function (application) {
-                size = $scope.applications.push(application);
+                var size = $scope.applications.push(application);
                 $scope.message = "application added";
                 $scope.appName = ''; // clear textbox
                 $scope.appDescription = ''; // clear textbox
