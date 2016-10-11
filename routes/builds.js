@@ -133,7 +133,7 @@ router.route('/')
           build.FromNow = moment(builds[i].created_at).fromNow();
           builds[i] = build;
         }
-        res.json(builds);
+        res.status(HTTPStatus.CREATED).json(builds);
       }
     });
   })
