@@ -20,7 +20,7 @@ GET /applications
 ### Get all builds for application
 
 ```
-GET /applications/{applicationName}
+GET /applications/name/{applicationName}
 ```
 
 ### Add build info
