@@ -1,0 +1,13 @@
+machine:
+  services:
+    - mongodb
+  environment:
+    mongodb: 127.0.0.1
+
+database:
+  override:
+    - npm run seed
+
+test:
+  override:
+    - npm test
