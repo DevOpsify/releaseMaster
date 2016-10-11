@@ -2,6 +2,7 @@ var request = require("supertest");
 var app = require("../app");
 var HTTPStatus = require('http-status');
 var dbschema = require('../models/dbschema.js');
+
 var Application = dbschema.Application;
 
 describe('Requests to root path', function () {
@@ -24,8 +25,8 @@ describe('Requests to Applications', function () {
     it('should get 200 and json', function (done) {
         request(app)
             .get('/applications')
-            .expect(HTTPStatus.OK)
-            .expect('Content-Type', /application\/json/, done);
+            .expect('Content-Type', /application\/json/)
+            .expect(HTTPStatus.OK, done)
     });
 
     it('should get 201 and json', function (done) {
@@ -35,7 +36,6 @@ describe('Requests to Applications', function () {
             .expect('Content-Type', /application\/json/)
             .expect(HTTPStatus.CREATED, done);
     });
-
 
 });
 
