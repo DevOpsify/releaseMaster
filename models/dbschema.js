@@ -61,11 +61,13 @@ var applicationInstance = connection.model('Application', ApplicationSchema);
 var buildInstance = connection.model('Build', BuildSchema);
 var deploymentInstance = connection.model('Deployment', DeploymentSchema);
 var environmentInstance = connection.model('Environment', EnvironmentSchema);
+var profileInstance = connection.model('Profile', ProfileSchema);
 
 module.exports.Application = applicationInstance;
 module.exports.Build = buildInstance;
 module.exports.Deployment = deploymentInstance;
 module.exports.Environment = environmentInstance;
+module.exports.Profile = profileInstance;
 
 ApplicationSchema.pre('remove', function(next) {
     buildInstance.remove({application: this._id}).exec();
