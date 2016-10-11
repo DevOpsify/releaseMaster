@@ -61,6 +61,8 @@ var deployments = require('./routes/deployments');
 app.use('/deployments', deployments);
 var environments = require('./routes/environments');
 app.use('/environments', environments);
+var profiles = require('./routes/profiles');
+app.use('/profiles', profiles);
 app.use(express.static('views'));
 
 var api = require('./routes/api');
