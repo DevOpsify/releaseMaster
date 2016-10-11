@@ -110,3 +110,32 @@ PUT /deployments/id/<id>
 ``` 
 DELETE /deployments/id/<id>
 ```
+
+### Add profile 
+```
+POST /profiles
+{
+  "application": "Digital",
+  "name": "dev1",
+  "description": "Digital application property profile for dev env",
+  "properties": [
+  	{"key":"DMIT",
+  		"value":"localhost"
+  	},
+  	{
+  	 "key": "ORACLE_PATH",
+  	 "value": "NA"
+  	}
+  ]
+}
+```
+
+### List profile
+```
+GET /profiles?application=<Application_Name>
+```
+
+### Delete profile
+```
+DELETE /profiles/name/<Profile_Name>
+```

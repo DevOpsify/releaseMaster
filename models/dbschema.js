@@ -32,13 +32,28 @@ var EnvironmentSchema = new Schema({
 });
 EnvironmentSchema.plugin(autoIncrement.plugin, 'Environment');
 
+var Property = new Schema ({
+  key: String,
+  value: String,
+});
+
+var ProfileSchema = new Schema({
+  application : { type: Number, ref: 'Application' },
+  name: String,
+  description: String,
+  properties: [Property],
+  updated_at: { type: Date, default: Date.now },
+});
+ProfileSchema.plugin(autoIncrement.plugin, 'Profile');
+
 var DeploymentSchema = new Schema({
   build : { type: Number, ref: 'Build' },
   application: {type: Number, ref: "Application"},
   environment : { type: Number, ref: 'Environment' },
   created_at: { type: Date, default: Date.now },  
   last_update: { type: Date, default: Date.now },  
-  status: { type: String, default: "N/A" }
+  status: { type: String, default: "N/A" },
+  properties: [Property],
 });
 DeploymentSchema.plugin(autoIncrement.plugin, 'Deployment');
 
@@ -46,11 +61,13 @@ var applicationInstance = connection.model('Application', ApplicationSchema);
 var buildInstance = connection.model('Build', BuildSchema);
 var deploymentInstance = connection.model('Deployment', DeploymentSchema);
 var environmentInstance = connection.model('Environment', EnvironmentSchema);
+var profileInstance = connection.model('Profile', ProfileSchema);
 
 module.exports.Application = applicationInstance;
 module.exports.Build = buildInstance;
 module.exports.Deployment = deploymentInstance;
 module.exports.Environment = environmentInstance;
+module.exports.Profile = profileInstance;
 
 ApplicationSchema.pre('remove', function(next) {
     buildInstance.remove({application: this._id}).exec();
