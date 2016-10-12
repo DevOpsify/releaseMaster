@@ -12,11 +12,11 @@ var Application = dbschema.Application;
 
 describe('Requests to Applications', function () {
 
-    // Clean up afte test is done. Note that we will run seed at the begin which will drop the database and load it with testing data
+    // Clean up after test is done. Note that we will run seed at the begin which will drop the database and load it with testing data
     after(function () {
-        Application.remove({}, function (error) {
-            if (error) throw error;
-        });
+        // Application.remove({}, function (error) {
+        //     if (error) throw error;
+        // });
     });
 
     it('should get 200 and json', function (done) {

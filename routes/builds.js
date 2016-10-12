@@ -133,7 +133,7 @@ router.route('/')
           build.FromNow = moment(builds[i].created_at).fromNow();
           builds[i] = build;
         }
-        res.status(HTTPStatus.CREATED).json(builds);
+        res.json(builds);
       }
     });
   })
@@ -157,7 +157,7 @@ router.route('/')
       }
     ], function (error, build, test) {
       if (error) return next(error);
-      res.json(build);
+      res.status(HTTPStatus.CREATED).json(build);
     });
   });
 
@@ -197,8 +197,7 @@ router.route('/id/:id')
       }
     ], function (error, build) {
       if (error) return next(error)
-      res.json(build)
+      res.HTTPStatusjson(build)
     });;
   });
-
 module.exports = router;
