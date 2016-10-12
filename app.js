@@ -65,6 +65,9 @@ var profiles = require('./routes/profiles');
 app.use('/profiles', profiles);
 app.use(express.static('views'));
 
+// Set case insenstive routing
+app.set('case sensitive routing', false);
+
 var api = require('./routes/api');
 app.use('/api', api);
 
