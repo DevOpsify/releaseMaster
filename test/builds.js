@@ -22,7 +22,7 @@ describe('Requests to /builds', function () {
             .expect(HTTPStatus.CREATED)
             .end(function (error, response) {
                 if (error) throw error;
-                assert.equal(response.body.application, "applicationtest")
+                assert.equal(response.body.gitRepo, "git@github.com/test")
                 done();
             });
     });
