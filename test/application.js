@@ -3,6 +3,7 @@
  */
 
 var request = require("supertest");
+var assert = require('assert');
 var app = require("../app");
 var HTTPStatus = require('http-status');
 var dbschema = require('../models/dbschema.js');
@@ -12,7 +13,7 @@ var Application = dbschema.Application;
 describe('Requests to Applications', function () {
 
     before(function () {
-        Application.remove({}, function(error){
+        Application.remove({}, function (error) {
             if (error) throw error;
         });
     });
@@ -35,9 +36,14 @@ describe('Requests to Applications', function () {
     it('should return application json', function (done) {
         request(app)
             .get('/applications/name/ApplicationTest')
-            .expect(HTTPStatus.OK)
             .expect('Content-Type', /application\/json/)
-            .expect(/This is an application description/, done);
+            .expect(HTTPStatus.OK)
+            .end(function (error, response) {
+                if (error) throw error;
+                // from previous post /applications test
+                assert.equal(response.body.name, "ApplicationTest");
+                done();
+            });
     });
 });
 
