@@ -26,5 +26,6 @@ clean:
 
 test:
 	npm install
+	npm run seed
 	npm test
 

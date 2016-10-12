@@ -1,9 +1,9 @@
 [ 
-  { "_id": 1, "name" : "Steel", "description" : "Awesome Featrue one"},
-  { "_id": 2, "name" : "Batman", "description" : "Awesome Featrue two"},
-  { "_id": 3, "name" : "Black Widow", "description" : "Awesome Featrue three"},
-  { "_id": 4, "name" : "Rorschach", "description" : "Awesome Featrue four"},
-  { "_id": 5, "name" : "Galactus", "description" : "Awesome Featrue five"},
-  { "_id": 6, "name" : "Loki", "description" : "Awesome Featrue six"},
-  { "_id": 7, "name" : "Gambit", "description" : "Awesome Featrue seven"}
+  { "_id": 1, "name" : "steel", "description" : "Awesome Featrue one"},
+  { "_id": 2, "name" : "batman", "description" : "Awesome Featrue two"},
+  { "_id": 3, "name" : "black Widow", "description" : "Awesome Featrue three"},
+  { "_id": 4, "name" : "rorschach", "description" : "Awesome Featrue four"},
+  { "_id": 5, "name" : "galactus", "description" : "Awesome Featrue five"},
+  { "_id": 6, "name" : "loki", "description" : "Awesome Featrue six"},
+  { "_id": 7, "name" : "gambit", "description" : "Awesome Featrue seven"}
 ]
