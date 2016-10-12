@@ -59,13 +59,14 @@ GET /api/{applicationName}/all?q=docker&branch={branch}
 ```
 POST /environments 
 {
+  "application": "application",
   "name": "DEV",
   "description": "This is a description"
 }
 ```
 
 
-### List all environments
+### List all environments (deprecated)
 
 ```
 GET /environments
