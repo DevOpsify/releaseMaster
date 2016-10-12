@@ -48,11 +48,11 @@ router.route('/')
             if (error) return next(error);
             for (var i = 0; i < profiles.length; i++) {
                 var profile = profiles[i].toObject();
-                profiles.FromNow = moment(profiles[i].updated_at).fromNow();
+                profile.FromNow = moment(profiles[i].updated_at).fromNow();
                 profiles[i] = profile;
             }
 
-            res.json(profile);
+            res.json(profiles);
         })
     })
     /* Create a profile */

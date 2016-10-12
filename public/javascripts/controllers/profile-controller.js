@@ -8,6 +8,7 @@ angular.module('release-master').controller('ProfileController', function($scope
     success(function(profiles) {
       $scope.profiles = profiles;
       $scope.application=$routeParams.application;
+      console.log($scope.profiles);
     });
 
   setTimeout(function() {

@@ -1,50 +1,55 @@
 <h3><a href="#/">{{application}}</a></h3>
 
 <ul class="nav nav-tabs">
-  <li><a href="#/builds/{{application}}">Builds</a></li>
-  <li><a href="#/deployment/{{application}}">Deployments</a></li>
-  <li class="active"><a href="#/profiles/{{application}}">Profiles</a></li>
+	<li><a href="#/builds/{{application}}">Builds</a></li>
+	<li><a href="#/deployment/{{application}}">Deployments</a></li>
+	<li class="active"><a href="#/profiles/{{application}}">Profiles</a></li>
 </ul>
 
 <table class="table table-bordered table-hover table-condensed table-striped">
-  <tbody>
-    <tr>
-      <th>
-        Profile #
-      </th>
-      <th class="col-md-3">
-        <div class="form-inline">
-          Name
-          <input type="text" class="form-control input-sm" id="filterName" placeholder="filter" ng-model="search.name">
-        </div>
-      </th>
-      <th>
-          Description
-      </th>
-      <th>
-        <div class="form-inline">
-          Update Time <span ng-click="sortReverse = true" class="fa fa-caret-up"></span>
-          <span ng-click="sortReverse = false" class="fa fa-caret-down"></span>
-        </div>
-      </th>
-    </tr>
+	<tbody>
+		<tr>
+			<th>
+				Profile #
+			</th>
+			<th class="col-md-3">
+				<div class="form-inline">
+					Name
+					<input type="text" class="form-control input-sm" id="filterName" placeholder="filter" ng-model="search.name">
+				</div>
+			</th>
+			<th>
+				Description
+			</th>
+			<th>
+				<div class="form-inline">
+					Update Time <span ng-click="sortReverse = true" class="fa fa-caret-up"></span>
+					<span ng-click="sortReverse = false" class="fa fa-caret-down"></span>
+				</div>
+			</th>
+		</tr>
 
-    <tr dir-paginate-start="profile in profiles  | filter:search | orderBy:'created_at':sortReverse | itemsPerPage: 50" ng-class="{success: profile._id==highlight}" ng-click="showme = !showme">
-      <td><kbd>{{profile._id}}</kbd> <span class="glyphicon glyphicon-info-sign"></span></td>
-      <td><a class="bg-primary label">{{profile.name}}</a></td>
-      <td><small>{{profile.description}}</small></td>
-      <td><a class="bg-primary label">{{profile.FromNow}}</a> <small>{{profile.created_at | date:'MM/dd/yyyy @ h:mma'}}</small></td>
-      <tr dir-paginate-end=""  ng-show="showme">
-        <td colspan="5">
-          Profile Info: <span class="bg-primary label">#{{profile._id}}</span>
-          <dl>
-            <p>{{profile.properties}}</p>
-          </dl>
-        </td>
-      </tr>
-    </tr>
+		<tr dir-paginate-start="profile in profiles  | filter:search | orderBy:'created_at':sortReverse | itemsPerPage: 50" ng-class="{success: profile._id==highlight}"
+			ng-click="showme = !showme">
+			<td><kbd>{{profile._id}}</kbd> <span class="glyphicon glyphicon-chevron-down"></span></td>
+			<td><a class="bg-primary label">{{profile.name}}</a></td>
+			<td><small>{{profile.description}}</small></td>
+			<td><a class="bg-primary label">{{profile.FromNow}}</a> <small>{{profile.created_at | date:'MM/dd/yyyy @ h:mma'}}</small></td>
+			<tr dir-paginate-end="" ng-show="showme">
+				<td colspan="5">
+					<span class="bg-primary label">#{{profile._id}} Properties</span>
+                    <p>
+					<ul style="list-style: none;">
+						<li ng-repeat="property in profile.properties">
+							<strong>{{property.key}}</strong>={{property.value}}
+						</li>
+					</ul>
+                    </p>
+				</td>
+			</tr>
+		</tr>
 
-  </tbody>
+	</tbody>
 </table>
 
 <dir-pagination-controls></dir-pagination-controls>
