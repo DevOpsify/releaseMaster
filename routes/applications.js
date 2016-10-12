@@ -16,8 +16,8 @@ var Build = dbschema.Build;
 router.route('/')
     .get(function (req, res, next) {
         async.waterfall([
-            function (callbacke) {
-                Application.find(callbacke);
+            function (callback) {
+                Application.find(callback);
             }
         ], function (err, applications) {
             if (err) next(err);
@@ -39,7 +39,7 @@ router.route('/')
             }
             var newApplication = new Application(req.body);
             newApplication.save(function (err) { if (err) return next(err); });
-            res.json(newApplication);
+            res.status(HTTPStatus.CREATED).json(newApplication);
         });
     });
 

@@ -2,12 +2,16 @@ sudo: required
 
 language: node_js
 
+env:
+  - mongodb=127.0.0.1
+
 services:
   - docker
+  - mongodb
 
 script:
+  - make test
   - docker build -t nextlink/releasemaster .
-
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then

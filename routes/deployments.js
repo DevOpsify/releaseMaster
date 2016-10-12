@@ -88,7 +88,7 @@ router.route('/')
                     console.log('map reduce took %d ms', stats.processtime)
                 })
 
-            res.json(deployment);
+            res.status(HTTPStatus.CREATED).json(deployment);
         });
     });
 

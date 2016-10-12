@@ -21,7 +21,7 @@ router.route('/:application/latest')
         res.end();
         return;
       };
-      queryString = { application: application._id }
+      var queryString = { application: application._id }
       if (typeof req.query.branch !== 'undefined' && req.query.branch) {
         queryString.gitBranch = req.query.branch;
       }

@@ -1,9 +1,10 @@
 all: start-local
 
-.PHONY: build push start start-local clean
+.PHONY: build push start start-local test clean
 
 
 TAG = 0.1
+REPORTER = list
 
 start-local:
 	docker-compose -f docker-compose.local.yml up --build -d
@@ -25,4 +26,6 @@ clean:
 
 test:
 	npm install
+	npm run seed
 	npm test
+

@@ -98,7 +98,7 @@ router.route('/')
       var newEnvironment = new Environment(req.body);
       newEnvironment.save(function (err) {
         if (err) return next(err);
-        res.json(newEnvironment);
+        res.status(HTTPStatus.CREATED).json(newEnvironment);
       });
     });
   });

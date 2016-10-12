@@ -1,0 +1,22 @@
+machine:
+  services:
+    - docker
+  environment:
+    mongodb: 127.0.0.1
+
+dependencies:
+  cache_directories:
+    - mongodb-linux-x86_64-ubuntu1204-3.2.0
+  pre:
+    - if [[ ! -d mongodb-linux-x86_64-ubuntu1204-3.2.0 ]]; then wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1204-3.2.0.tgz && tar xvzf mongodb-linux-x86_64-ubuntu1204-3.2.0.tgz; fi
+    - sudo /etc/init.d/mongodb stop
+    - sudo cp mongodb-linux-x86_64-ubuntu1204-3.2.0/bin/* /usr/bin
+    - sudo /etc/init.d/mongodb start
+
+database:
+  override:
+    - npm run seed
+
+test:
+  override:
+    - npm test
