@@ -17,7 +17,7 @@ POST /applications
 GET /applications
 ```
 
-### Get all builds for application
+### Get application info
 
 ```
 GET /applications/name/{applicationName}
