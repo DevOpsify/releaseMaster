@@ -26,10 +26,4 @@ describe('Requests to /builds', function () {
                 done();
             });
     });
-
-    it('shoudl return 200 with json', function (done) {
-        request(app)
-            .get('/builds/applicationtest/latest')
-            .expect('', done);
-    });
 });
