@@ -32,5 +32,12 @@ describe('Requests to Applications', function () {
             .expect(HTTPStatus.CREATED, done);
     });
 
+    it('should return application json', function (done) {
+        request(app)
+            .get('/applications/name/ApplicationTest')
+            .expect(HTTPStatus.OK)
+            .expect('Content-Type', /application\/json/)
+            .expect(/This is an application description/, done);
+    });
 });
 
