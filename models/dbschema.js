@@ -6,7 +6,7 @@ var connection = mongoose.createConnection(mongoURI);
 autoIncrement.initialize(connection);
 
 var ApplicationSchema = new Schema({
-  name: String,
+  name: {type: String, lowercase: true, trim: true},
   description: String,
   updated_at: { type: Date, default: Date.now },
 });
@@ -26,7 +26,7 @@ BuildSchema.plugin(autoIncrement.plugin, 'Build');
 
 var EnvironmentSchema = new Schema({
   application : { type: Number, ref: 'Application' },
-  name: String,
+  name: {type: String, lowercase: true, trim: true},
   updated_at: { type: Date, default: Date.now },
   description: String,
 });
@@ -39,7 +39,7 @@ var Property = new Schema ({
 
 var ProfileSchema = new Schema({
   application : { type: Number, ref: 'Application' },
-  name: String,
+  name: {type: String, lowercase: true, trim: true},
   description: String,
   properties: [Property],
   updated_at: { type: Date, default: Date.now },

@@ -33,17 +33,25 @@ describe('Requests to Applications', function () {
             .expect(HTTPStatus.CREATED, done);
     });
 
-    it('should return application json', function (done) {
+    it('should return application json with 200 OK', function (done) {
         request(app)
-            .get('/applications/name/ApplicationTest')
+            .get('/applications/name/applicationtest')
             .expect('Content-Type', /application\/json/)
             .expect(HTTPStatus.OK)
             .end(function (error, response) {
                 if (error) throw error;
                 // from previous post /applications test
-                assert.equal(response.body.name, "ApplicationTest");
+                assert.equal(response.body.name, "applicationtest");
                 done();
             });
+    });
+    
+    it('should redirect to /applicationtest with 301 Moved Permanently', function (done) {
+        request(app)
+            .get('/applications/name/ApplicationTest')
+            .expect(HTTPStatus.MOVED_PERMANENTLY)
+            .expect('Location', '/applications/name/applicationtest')
+            .end(done)
     });
 });
 
