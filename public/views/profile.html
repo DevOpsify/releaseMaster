@@ -28,11 +28,10 @@
 				</div>
 			</th>
 		</tr>
-
-		<tr dir-paginate-start="profile in profiles  | filter:search | orderBy:'created_at':sortReverse | itemsPerPage: 50" ng-class="{success: profile._id==highlight}"
-			ng-click="showme = !showme">
-			<td><kbd>{{profile._id}}</kbd> <span class="glyphicon glyphicon-chevron-down"></span></td>
-			<td><a class="bg-primary label">{{profile.name}}</a></td>
+		<tr dir-paginate-start="profile in profiles  | filter:search | orderBy:'created_at':sortReverse | itemsPerPage: 50" ng-class="{success: profile._id==highlight}">
+			<td><input type="checkbox" ng-model="profile.selected" ng-change="checkChanged(profile)" ng-disabled="checked==limit && !profile.selected"/>
+            <kbd>{{profile._id}}</kbd></td>
+			<td><a class="bg-primary label" ng-click="showme = !showme">{{profile.name}}</a></td>
 			<td><small>{{profile.description}}</small></td>
 			<td><a class="bg-primary label">{{profile.FromNow}}</a> <small>{{profile.created_at | date:'MM/dd/yyyy @ h:mma'}}</small></td>
 			<tr dir-paginate-end="" ng-show="showme">
@@ -48,7 +47,6 @@
 				</td>
 			</tr>
 		</tr>
-
 	</tbody>
 </table>
 
