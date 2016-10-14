@@ -56,3 +56,76 @@ describe('Requests to Applications', function () {
     });
 });
 
+describe('Requests to builds', function () {
+    it('should return 201 with json', function (done) {
+
+        var testBuild = {
+            "application": "applicationtest",
+            "gitRepo": "git@github.com/test",
+            "gitSHA": "1111abcd1234",
+            "gitBranch": "master",
+            "dockerDigest": "sha256:12345678"
+        };
+
+        request(app)
+            .post('/builds')
+            .send(testBuild)
+            .expect('Content-Type', /application\/json/)
+            .expect(HTTPStatus.CREATED)
+            .end(function (error, response) {
+                if (error) throw error;
+                assert.equal(response.body.gitRepo, "git@github.com/test")
+                done();
+            });
+    });
+});
+
+describe('Request to environments', function () {
+    it('should return 201 with json', function (done) {
+        var testEnvironment = {
+            "application": "applicationtest",
+            "name": "ApplicationTestEnv",
+            "description": "This is a description"
+        }
+        request(app)
+            .post('/environments')
+            .send(testEnvironment)
+            .expect('Content-Type', /application\/json/)
+            .expect(HTTPStatus.CREATED)
+            .end(function(error, response){
+                if (error) throw error;
+                assert.equal(response.body.name, "applicationtestenv");
+                done();
+            });
+    });
+
+    it('should return 200 with json', function (done) {
+        request(app)
+            .get('/environments')
+            .query('application=applicationtest')
+            .expect('Content-Type', /application\/json/)
+            .expect(HTTPStatus.OK)
+            .end(function(error, response){
+                if (error) throw error;
+                assert.equal(response.body[0].name, "applicationtestenv");
+                done();
+            });
+
+    });
+
+});
+
+describe('Requests to deployments', function () {
+    // it('Should return 201 with json', function (done) {
+    //
+    // });
+
+    it('Should return 200 with json', function (done) {
+        request(app)
+            .get('/deployments')
+            .expect('Content-Type', /application\/json/)
+            .expect(HTTPStatus.OK, done)
+    });
+
+
+});

@@ -22,14 +22,14 @@ router.route('/')
         async.waterfall([
             function (callback) {
                 if (req.query && req.query.application) {
-                    Application.findOne({ 'name': req.query.application }, callback);
+                    Application.findOne({'name': req.query.application}, callback);
                 } else {
                     callback(null, null);
                 }
             },
             function (application, callback) {
                 if (application) {
-                    Deployment.find({ "application": application.id }, callback);
+                    Deployment.find({"application": application.id}, callback);
                 } else if (req.query && req.query.application) {
                     var res_json = {
                         "reason": "can not found application with name : " + req.query.application
@@ -42,11 +42,11 @@ router.route('/')
             }
         ], function (error, deployments) {
             if (error) return next(error);
-            res.json(deployments);
+            res.status(HTTPStatus.OK).json(deployments);
         })
     })
     .post(function (req, res, next) {
-        //TODO Need validation agaist build and env model for id check
+        //TODO Need validation against build and env model for id check
         request(
             {
                 method: 'GET'
@@ -72,7 +72,7 @@ router.route('/')
             },
             function (build, callback) {
 
-                Environment.findOne({ '_id': deployment.environment }).exec(function (err, environment) {
+                Environment.findOne({'_id': deployment.environment}).exec(function (err, environment) {
                     if (err) return next(error);
 
                     deployment.application = build.application;
@@ -132,7 +132,7 @@ router.route('/id/:id')
     .delete(function (req, res, next) {
         async.waterfall([
             function (callback) {
-                Deployment.findById(req.params.id, callback); 
+                Deployment.findById(req.params.id, callback);
             }
         ], function (error, deployment) {
             if (error) return next(err);
