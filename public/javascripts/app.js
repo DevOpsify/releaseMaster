@@ -13,5 +13,8 @@ angular.module('release-master', ['ng', 'ngRoute', 'ngResource','ui.bootstrap','
     }).
     when('/deployment/:application', {
       template: '<deployment></deployment>'
+    }).
+    when('/profiles/:application', {
+      template: '<profile></profile>'
     });
 });
