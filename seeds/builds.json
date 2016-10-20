@@ -1,0 +1,9 @@
+[
+  {"_id": 1, "application": 1, "gitRepo": "git@github.com/test1", "gitSHA": "1111abcd1234", "gitBranch": "master", "dockerDigest": "sha256:12345678"},
+  {"_id": 2, "application": 1, "gitRepo": "git@github.com/test2", "gitSHA": "1111abcd1235", "gitBranch": "development", "dockerDigest": "sha256:123456789"},
+  {"_id": 3, "application": 2, "gitRepo": "git@github.com/test3", "gitSHA": "1111abcd1235", "gitBranch": "master", "dockerDigest": "sha256:123456789"},
+  {"_id": 4, "application": 2, "gitRepo": "git@github.com/test4", "gitSHA": "1111abcd1235", "gitBranch": "development", "dockerDigest": "sha256:123456789"},
+  {"_id": 5, "application": 3, "gitRepo": "git@github.com/test5", "gitSHA": "1111abcd1235", "gitBranch": "development", "dockerDigest": "sha256:123456789"},
+  {"_id": 6, "application": 3, "gitRepo": "git@github.com/test6", "gitSHA": "1111abcd1235", "gitBranch": "development", "dockerDigest": "sha256:123456789"},
+  {"_id": 7, "application": 4, "gitRepo": "git@github.com/test7", "gitSHA": "1111abcd1235", "gitBranch": "development", "dockerDigest": "sha256:123456789"}
+]

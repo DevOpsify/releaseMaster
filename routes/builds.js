@@ -86,8 +86,6 @@ router.route('/')
           res.status(HTTPStatus.NOT_FOUND).json(res_json);
           return
         }
-
-
         var query = Build.find({});
         query.where("application", application._id);
         if (req.query.branch) {
