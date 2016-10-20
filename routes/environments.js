@@ -15,10 +15,8 @@ var Application = dbschema.Application;
 var Deployment = dbschema.Deployment;
 var LatestDeployment = dbschema.LatestDeployment;
 
-/* Gets all environments. */
-/* Create a environment */
-// Check duplicate on name
 router.route('/')
+  /* Gets all environments. */
   .get(function (req, res, next) {
     async.waterfall([
       function (callback) {
@@ -70,6 +68,7 @@ router.route('/')
       res.json(environments);
     })
   })
+  /* Create a environment */
   .post(function (req, res, next) {
     async.waterfall([
       function (callback) {

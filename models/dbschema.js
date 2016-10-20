@@ -89,6 +89,7 @@ var LatestDeploymentSchema = new Schema({
     build :  Number
   }
 });
+
 LatestDeploymentSchema.plugin(autoIncrement.plugin, 'LatestDeployment');
 var MapReduceLatestDeployment={};
 MapReduceLatestDeployment.map = function() {

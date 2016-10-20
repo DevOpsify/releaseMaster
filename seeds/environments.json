@@ -1,3 +1,5 @@
 [
-  { "_id": 60001, "application": 1, "name": "ApplicationTestEnv", "description": "This is a description"}
+  { "_id": 60001, "application": 1, "name": "ApplicationTestEnv1", "description": "This is a description"},
+  { "_id": 60002, "application": 1, "name": "ApplicationTestEnv2", "description": "This is a description"},
+  { "_id": 60003, "application": 1, "name": "ApplicationTestEnv3", "description": "This is a description"}
 ]

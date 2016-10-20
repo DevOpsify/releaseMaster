@@ -1,3 +1,4 @@
 [
-  {"_id": 70001, "build": 5000, "application": 1, "environment" : 60001, "created_at": "2016-05-18T16:00:00Z", "last_update": "2016-05-18T16:00:00Z", "status": "N/A"}
+  {"_id": 1, "build": 5000, "application": 1, "environment" : 60001, "properties": [], "created_at": "2016-10-20T22:08:24.362Z", "last_update": "2016-05-18T16:00:00Z", "status": "N/A"},
+  {"_id": 2, "build": 5001, "application": 1, "environment" : 60002, "properties": [], "created_at": "2016-10-20T22:08:28.362Z", "last_update": "2016-05-18T16:19:00Z", "status": "N/A"}
 ]

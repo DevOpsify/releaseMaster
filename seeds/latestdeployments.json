@@ -1,0 +1,5 @@
+[
+  { "_id" : 60001, "value" : { "last_update" : "2016-05-18T16:00:00Z", "status" : "N/A", "build" : 5000 } },
+  { "_id" : 60002, "value" : { "last_update" : "2016-05-18T16:00:00Z", "status" : "N/A", "build" : 5001 } },
+  { "_id" : 60003, "value" : { "last_update" : "2016-05-18T16:00:00Z", "status" : "N/A", "build" : 5001 } }
+]

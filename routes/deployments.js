@@ -92,10 +92,8 @@ router.route('/')
         });
     });
 
-/* Gets a deployment by its id */
-/* Updates a deployment status by its id */
-/* Deletes a deployment by its id */
 router.route('/id/:id')
+    /* Gets a deployment by its id */
     .get(function (req, res, next) {
         async.waterfall([
             function (callback) {
@@ -113,6 +111,7 @@ router.route('/id/:id')
             }
         });
     })
+    /* Updates a deployment status by its id */
     .put(function (req, res, next) {
         console.log(req.params.id);
         async.waterfall([
@@ -129,6 +128,7 @@ router.route('/id/:id')
             res.json(deployment);
         });
     })
+    /* Deletes a deployment by its id */
     .delete(function (req, res, next) {
         async.waterfall([
             function (callback) {
