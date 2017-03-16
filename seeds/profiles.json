@@ -1,0 +1,8 @@
+[ 
+  { "_id": 1, "name" : "dev_r2", "application": 1, "description" : "Awesome Featrue one", "properties": [{ "key" : "DB_USER", "value" : "dev"}, { "key" : "DB_PASSWORD", "value" : "devops"}] },
+  { "_id": 2, "name" : "dev_r2.1", "application": 1, "description" : "Awesome Featrue two", "properties": [{ "key" : "DB_USER", "value" : "sit1"}, { "key" : "DB_PASSWORD", "value" : "devops"}]},
+  { "_id": 3, "name" : "dev_r2.2", "application": 1, "description" : "Awesome Featrue three", "properties": [{ "key" : "DB_USER", "value" : "sit2"}, { "key" : "DB_PASSWORD", "value" : "devops"}]},
+  { "_id": 4, "name" : "dev_r2.3", "application": 1, "description" : "Awesome Featrue four", "properties": [{ "key" : "DB_USER", "value" : "pps"}, { "key" : "DB_PASSWORD", "value" : "devops"}]},
+  { "_id": 5, "name" : "dev_r2.4", "application": 1, "description" : "Awesome Featrue five", "properties": [{ "key" : "DB_USER", "value" : "prf"}, { "key" : "DB_PASSWORD", "value" : "devops"}]},
+  { "_id": 6, "name" : "dev_r4", "application": 1, "description" : "Awesome Featrue six", "properties": [{ "key" : "DB_USER", "value" : "prod"}, { "key" : "DB_PASSWORD", "value" : "devops"}]}
+]
